@@ -144,6 +144,7 @@ def main():
                     f"<p><strong>CNPJ:</strong> {item.get('cnpj', '')}</p>" + \
                     f"<p><strong>Nome:</strong> {item.get('nome', '')}</p>" + \
                     f"<p><strong>Fantasia:</strong> {item.get('fantasia', '')}</p>" + \
+                    f"<p><strong>CNPJ:</strong> {item.get('cnpj', '')}</p>" + \
                     f"<p><strong>Abertura:</strong> {item.get('abertura', '')}</p>" + \
                     f"<p><strong>E-mail:</strong> {item.get('email', '')}</p>" + \
                     f"<p><strong>Telefone:</strong> {telefone_html}</p>" + \

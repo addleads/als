@@ -154,6 +154,7 @@ def main():
                     f"<h3>{item.get('fantasia', '')}</h3>" + \
                     f"<p><strong>CNPJ:</strong> {item.get('cnpj', '')}</p>" + \
                     f"<p><strong>Abertura:</strong> {item.get('abertura', '')}</p>" + \
+                    f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
                     f"<p><strong>E-mail:</strong> {item.get('email', '')}</p>" + \
                     f"<p><strong>Telefone:</strong> {telefone_html}</p>" + \
                     f"<p><strong>Atividade Principal:</strong> {item.get('atividade_principal', [{}])[0].get('text', '')}</p>" + \
@@ -162,7 +163,6 @@ def main():
                     f"<p><strong>Bairro:</strong> {item.get('bairro', '')}</p>" + \
                     f"<p><strong>Rua:</strong> {item.get('logradouro', '')}</p>" + \
                     f"<p><strong>Número:</strong> {item.get('numero', '')}</p>" + \
-                    f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
                     f"{qsa_html}" + \
                     "</div>"
 

@@ -127,6 +127,11 @@ def main():
     # Slider único para selecionar o intervalo de datas, atualizado conforme os filtros
     st.sidebar.subheader("Intervalo de Data de Abertura")
     data_range = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date), format="DD/MM/YYYY")
+    
+    # Botão para resetar o intervalo de datas para os valores padrão
+    if st.sidebar.button("Resetar Datas"):
+        data_range = (default_start_date, default_end_date)
+    
     st.session_state.data_range = data_range
 
     # Exibir os limites de datas
@@ -168,4 +173,4 @@ def main():
             st.error("Formato de data inválido. Utilize o formato dd/mm/aaaa para as datas.")
 
 if __name__ == "__main__":
-    main()
+    main

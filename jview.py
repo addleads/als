@@ -104,12 +104,18 @@ def main():
 
     # Inicialização do intervalo de datas com base nos dados filtrados
     data_range = st.session_state.data_range if "data_range" in st.session_state else (None, None)
-    
+
+    # Encontrar a data mínima e máxima dos dados não filtrados
+    if json_data_sorted:
+        min_date = datetime.strptime(json_data_sorted[-1]['abertura'], '%d/%m/%Y').date()
+        max_date = datetime.strptime(json_data_sorted[0]['abertura'], '%d/%m/%Y').date()
+    else:
+        min_date = datetime.now().date()
+        max_date = datetime.now().date()
+
     # Slider único para selecionar o intervalo de datas, atualizado conforme os filtros
     st.sidebar.subheader("Intervalo de Data de Abertura")
-    default_start_date = datetime.now().date() - timedelta(days=365)
-    default_end_date = datetime.now().date()
-    selected_start_date, selected_end_date = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date), format="DD/MM/YYYY", key="date_slider")
+    selected_start_date, selected_end_date = st.sidebar.slider("Intervalo de Data", min_value=min_date, max_value=max_date, value=(min_date, max_date), format="DD/MM/YYYY", key="date_slider")
     
     # Botão para acionar o filtro com as seleções do usuário
     if st.sidebar.button("Filtrar"):
@@ -143,7 +149,6 @@ def main():
                     f"<p><strong>Bairro:</strong> {item.get('bairro', '')}</p>" + \
                     f"<p><strong>Rua:</strong> {item.get('logradouro', '')}</p>" + \
                     f"<p><strong>Número:</strong> {item.get('numero', '')}</p>" + \
-                    f"<p><strong>Situação:</strong> {item.get('situacao', '')}</p>" + \
                     f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
                     "</div>"
                 st.markdown(card_content, unsafe_allow_html=True)

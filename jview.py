@@ -141,8 +141,8 @@ def main():
                         telefone_html += f"{phone_number}<br>"
                 
                 card_content = "<div class='content'>" + \
-                    f"<h3>{item.get('nome', '')}</h3></p>" + \
-                    f"<h3>{item.get('fantasia', '')}</h3></p>" + \
+                    f"<h2>{item.get('nome', '')}</h2></p>" + \
+                    f"<h2>{item.get('fantasia', '')}</h2></p>" + \
                     f"<p><strong>CNPJ:</strong> {item.get('cnpj', '')}</p>" + \
                     f"<p><strong>Abertura:</strong> {item.get('abertura', '')}</p>" + \
                     f"<p><strong>E-mail:</strong> {item.get('email', '')}</p>" + \

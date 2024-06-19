@@ -57,28 +57,32 @@ def authenticate():
     if st.sidebar.button("Login"):
         if username in CREDENTIALS and password == CREDENTIALS[username]:
             st.sidebar.success(f"Login realizado com sucesso como {username.capitalize()}!")
-            return True
+            return True, username
         else:
             st.sidebar.error("Credenciais incorretas. Tente novamente.")
-            return False
-    return False
+            return False, None
+    return False, None
+
+def logout():
+    st.session_state.authenticated = False
+    st.sidebar.success("Você foi desconectado com sucesso!")
 
 def main():
     # Título fixo na barra lateral
     st.sidebar.title("Add Leads")
 
     # Autenticação no início da execução
-    authenticated = False
     if "authenticated" not in st.session_state:
         st.session_state.authenticated = False
 
     if not st.session_state.authenticated:
-        authenticated = authenticate()
+        authenticated, username = authenticate()
         st.session_state.authenticated = authenticated
     else:
-        authenticated = True
+        username = st.sidebar.text_input("Usuário", value="", key="username_field")
+        st.sidebar.info(f"Logado como {username.capitalize()}!")
 
-    if not authenticated:
+    if not st.session_state.authenticated:
         return
 
     file_path = "cli.json"
@@ -161,6 +165,10 @@ def main():
                 
         else:
             st.subheader("Nenhum resultado encontrado com os filtros selecionados.")
+
+    # Botão para fazer logoff
+    if st.sidebar.button("Sair"):
+        logout()
 
 if __name__ == "__main__":
     main()

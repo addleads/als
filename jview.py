@@ -13,7 +13,7 @@ def load_json(file_path):
         with open(file_path, 'r', encoding='utf-8') as f:
             json_data = json.load(f)
     except Exception as e:
-        st.error(f"Ocorreu um erro ao carregar o arquivo JSON: {str(e)}")
+        st.error(f"Ocorreu um erro ao carregar: {str(e)}")
         st.stop()
     return json_data
 
@@ -46,13 +46,13 @@ def create_whatsapp_link(phone_number):
     return f"https://wa.me/55{phone_number.replace(' ', '').replace('-', '').replace('(', '').replace(')', '')}"
 
 def main():
-    st.title('Visualizador de JSON')
+    st.title('Empresas')
 
     file_path = "cli.json"
     json_data = load_json(file_path)
 
     if not isinstance(json_data, list):
-        st.error("O arquivo JSON não está no formato correto. Por favor, verifique se é uma lista de objetos JSON.")
+        st.error("O arquivo não está no formato correto. Por favor, verifique se é uma lista.")
         st.stop()
 
     # Ordenar a lista de empresas pela data de abertura, da mais recente para a mais antiga

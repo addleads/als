@@ -142,7 +142,7 @@ def main():
                 
                 card_content = "<div class='content'>" + \
                     f"<p><strong><h3>Nome:</h3></strong> {item.get('nome', '')}</p>" + \
-                    f"<p><strong><h3>Fantasia:</h3></strong> {item.get('fantasia', '')}</p>" + \          
+                    f"<p><strong><h3>Fantasia:</h3></strong> {item.get('fantasia', '')}</p>" + \
                     f"<p><strong>CNPJ:</strong> {item.get('cnpj', '')}</p>" + \
                     f"<p><strong>Abertura:</strong> {item.get('abertura', '')}</p>" + \
                     f"<p><strong>E-mail:</strong> {item.get('email', '')}</p>" + \
@@ -155,8 +155,10 @@ def main():
                     f"<p><strong>Número:</strong> {item.get('numero', '')}</p>" + \
                     f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
                     "</div>"
-                st.markdown(card_content, unsafe_allow_html=True)
-                st.markdown('___________')
+
+                    st.markdown(card_content, unsafe_allow_html=True)
+                    st.markdown('___________')
+                
         else:
             st.subheader("Nenhum resultado encontrado com os filtros selecionados.")
 

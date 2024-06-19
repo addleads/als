@@ -6,9 +6,8 @@ from datetime import datetime, timedelta
 
 # Credenciais de usuário para autenticação
 CREDENTIALS = {
-    "admin": "admin",
-    "francisco": "francisco",
-    "adm": "adm",
+    "francisco": "francisco2024",
+    "adm": "adm123",
     "wingriddy": "wingriddy"
 }
 
@@ -31,8 +30,10 @@ def convert_date(date_str):
     except ValueError:
         return None
 
-def filter_json(json_data, city, cnae_codes, keyword, situacao, porte, data_inicio, data_fim):
+def filter_json(json_data, city, cnae_codes, keyword, situacao, porte, data_range):
     filtered_data = []
+    data_inicio, data_fim = data_range
+
     for item in json_data:
         if (not city or item.get('municipio') == city) and (not cnae_codes or any(prim.get('code') in cnae_codes for prim in item.get('atividade_principal', []))):
             if keyword.lower() in json.dumps(item).lower():
@@ -41,11 +42,8 @@ def filter_json(json_data, city, cnae_codes, keyword, situacao, porte, data_inic
                     data_abertura = convert_date(data_abertura_str)
                     if data_abertura:
                         if data_inicio and data_fim:
-                            data_inicio_conv = convert_date(data_inicio)
-                            data_fim_conv = convert_date(data_fim)
-                            if data_inicio_conv and data_fim_conv:
-                                if data_inicio_conv <= data_abertura <= data_fim_conv:
-                                    filtered_data.append(item)
+                            if data_inicio <= data_abertura <= data_fim:
+                                filtered_data.append(item)
                         else:
                             filtered_data.append(item)
     return filtered_data
@@ -98,17 +96,16 @@ def main():
     porte = st.sidebar.selectbox('Selecione o porte', portes)
     keyword = st.sidebar.text_input('Pesquisar por palavra-chave')
 
-    # Slider para selecionar o intervalo de datas
+    # Slider único para selecionar o intervalo de datas
     st.sidebar.subheader("Intervalo de Data de Abertura")
     today = datetime.now().date()
     default_end_date = today
     default_start_date = today - timedelta(days=365)  # Um ano atrás
-    data_inicio = st.sidebar.slider("Data de Início", min_value=default_start_date, max_value=default_end_date, value=default_start_date)
-    data_fim = st.sidebar.slider("Data Final", min_value=default_start_date, max_value=default_end_date, value=default_end_date)
+    data_range = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date))
 
     if st.sidebar.button('Filtrar'):
         try:
-            filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, data_inicio.strftime('%d/%m/%Y'), data_fim.strftime('%d/%m/%Y'))
+            filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, data_range)
             for item in filtered_data:
                 # Encontrar números de telefone que contenham ") 8" ou ") 9"
                 telephones = re.findall(r"\(\d+\) \d+-\d+", item.get('telefone', ''))

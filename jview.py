@@ -6,8 +6,9 @@ from datetime import datetime, timedelta
 
 # Credenciais de usuário para autenticação
 CREDENTIALS = {
-    "francisco": "francisco2024",
-    "adm": "adm123",
+    "admin": "admin",
+    "francisco": "francisco",
+    "adm": "adm",
     "wingriddy": "wingriddy"
 }
 

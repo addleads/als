@@ -125,8 +125,12 @@ def main():
     default_end_date = max_date
 
     # Slider único para selecionar o intervalo de datas, atualizado conforme os filtros
+    st.sidebar.subheader("Intervalo de Data de Abertura")
     data_range = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date), format="DD/MM/YYYY")
     st.session_state.data_range = data_range
+
+    # Exibir os limites de datas
+    st.sidebar.write(f"Data mínima: {min_date.strftime('%d/%m/%Y')} | Data máxima: {max_date.strftime('%d/%m/%Y')}")
 
     if st.sidebar.button('Filtrar'):
         try:

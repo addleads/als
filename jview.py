@@ -141,12 +141,12 @@ def main():
                         telefone_html += f"{phone_number}<br>"
                 
                 card_content = "<div class='content'>" + \
-                    f"<h3>{item.get('nome', '')}</h3></p>" + \
-                    f"<h3>{item.get('fantasia', '')}</h3></p>" + \
+                    f"<h3>{item.get('nome', '')}</h3>" + \
+                    f"<h3>{item.get('fantasia', '')}</h3>" + \
                     f"<strong>CNPJ:</strong> {item.get('cnpj', '')}" + \
                     f"<p><strong>Abertura:</strong> {item.get('abertura', '')}</p>" + \
-                    f"<p><strong>E-mail:</strong> {item.get('email', '')}</p>" + \
-                    f"<p><strong>Telefone:</strong> {telefone_html}</p>" + \
+                    f"<strong>E-mail:</strong> {item.get('email', '')}" + \
+                    f"<strong>Telefone:</strong> {telefone_html}" + \
                     f"<p><strong>Atividade Principal:</strong> {item.get('atividade_principal', [{}])[0].get('text', '')}</p>" + \
                     f"<p><strong>Atividades Secundárias:</strong> {item.get('atividades_secundarias', [{}])[0].get('text', '')}</p>" + \
                     f"<p><strong>Município:</strong> {item.get('municipio', '')}</p>" + \

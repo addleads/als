@@ -30,14 +30,14 @@ def convert_date(date_str):
     except ValueError:
         return None
 
-def filter_json(json_data, city, cnae_codes, keyword, porte, data_range):
+def filter_json(json_data, city, cnae_codes, keyword, portes, data_range):
     filtered_data = []
     data_inicio, data_fim = data_range
 
     for item in json_data:
         if (not city or item.get('municipio') == city) and (not cnae_codes or any(prim.get('code') in cnae_codes for prim in item.get('atividade_principal', []))):
             if keyword.lower() in json.dumps(item).lower():
-                if (not porte or item.get('porte') == porte):
+                if (not portes or item.get('porte') in portes):
                     data_abertura_str = item.get('abertura', '')
                     data_abertura = convert_date(data_abertura_str)
                     if data_abertura:
@@ -96,11 +96,11 @@ def main():
     cnaes_dict = {prim['code']: prim['text'] for item in json_data_sorted for prim in item.get('atividade_principal', [])}
     cnae_codes = [''] + sorted(list(cnaes_dict.keys()))
 
-    portes = [''] + sorted(list(set(item.get('porte', '') for item in json_data_sorted)))
+    portes = sorted(list(set(item.get('porte', '') for item in json_data_sorted)))
 
     city = st.sidebar.selectbox('Selecione a cidade', cities)
     selected_cnaes = st.sidebar.multiselect('Selecione o(s) CNAE(s)', cnae_codes, format_func=lambda x: cnaes_dict.get(x, ""))
-    porte = st.sidebar.selectbox('Selecione o porte', portes)
+    portes_selected = st.sidebar.multiselect('Selecione o(s) porte(s)', portes, default=portes)
     keyword = st.sidebar.text_input('Pesquisar por palavra-chave')
 
     # Inicialização do intervalo de datas com base nos dados filtrados
@@ -125,7 +125,7 @@ def main():
         st.session_state.data_range = data_range
         
         # Filtrar dados com base nas seleções do usuário, incluindo o novo intervalo de datas
-        filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, porte, data_range)
+        filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, portes_selected, data_range)
 
         # Exibir os dados filtrados diretamente após alterar o slider, sem precisar pressionar Filtrar
         if filtered_data:

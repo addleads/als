@@ -6,9 +6,8 @@ from datetime import datetime, timedelta
 
 # Credenciais de usuário para autenticação
 CREDENTIALS = {
-    "admin": "admin",
     "francisco": "francisco",
-    "adm": "adm",
+    "adm": "adm123",
     "wingriddy": "wingriddy"
 }
 
@@ -66,7 +65,6 @@ def authenticate():
     return False
 
 def main():
-    st.title('Empresas')
 
     # Autenticação no início da execução
     authenticated = False
@@ -109,8 +107,11 @@ def main():
     # Inicialização do intervalo de datas com base nos dados filtrados
     data_range = st.session_state.data_range if "data_range" in st.session_state else (None, None)
     
-    # Filtrar dados com base nas seleções do usuário
-    filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, data_range)
+    # Botão para acionar o filtro com as seleções do usuário
+    if st.sidebar.button("Filtrar"):
+        filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, data_range)
+    else:
+        filtered_data = []
 
     # Obter as datas mínima e máxima dos dados filtrados para o slider
     if filtered_data:

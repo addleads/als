@@ -156,8 +156,8 @@ def main():
                     f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
                     "</div>"
 
-                    st.markdown(card_content, unsafe_allow_html=True)
-                    st.markdown('___________')
+                st.markdown(card_content, unsafe_allow_html=True)
+                st.markdown('___________')
                 
         else:
             st.subheader("Nenhum resultado encontrado com os filtros selecionados.")

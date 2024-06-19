@@ -126,13 +126,14 @@ def main():
 
     # Slider único para selecionar o intervalo de datas, atualizado conforme os filtros
     st.sidebar.subheader("Intervalo de Data de Abertura")
-    data_range = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date), format="DD/MM/YYYY")
+    selected_start_date, selected_end_date = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date), format="DD/MM/YYYY")
     
     # Botão para resetar o intervalo de datas para os valores padrão
     if st.sidebar.button("Resetar Datas"):
-        data_range = (default_start_date, default_end_date)
+        selected_start_date = default_start_date
+        selected_end_date = default_end_date
     
-    st.session_state.data_range = data_range
+    st.session_state.data_range = (selected_start_date, selected_end_date)
 
     # Exibir os limites de datas
     st.sidebar.write(f"Data mínima: {min_date.strftime('%d/%m/%Y')} | Data máxima: {max_date.strftime('%d/%m/%Y')}")
@@ -169,9 +170,7 @@ def main():
                 "</div>"
             st.markdown(card_content, unsafe_allow_html=True)
             st.markdown('___________')
-
-    # Mensagem se nenhum dado for filtrado
-    if not filtered_data:
+    else:
         st.subheader("Nenhum resultado encontrado com os filtros selecionados.")
 
 if __name__ == "__main__":

@@ -155,6 +155,7 @@ def main():
                     f"<p><strong>Número:</strong> {item.get('numero', '')}</p>" + \
                     f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
                     f"<p><strong>Propietario:</strong> {item.get('qsa', '')}</p>" + \
+                    f"<p><strong>QSA:</strong> {qsa_html}</p>" + \
                     "</div>"
 
                 st.markdown(card_content, unsafe_allow_html=True)

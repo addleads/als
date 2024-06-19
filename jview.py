@@ -52,38 +52,31 @@ def create_whatsapp_link(phone_number):
     return f"https://wa.me/55{phone_number.replace(' ', '').replace('-', '').replace('(', '').replace(')', '')}"
 
 def authenticate():
-    if "authenticated" not in st.session_state:
-        st.session_state.authenticated = False
-
-    if not st.session_state.authenticated:
-        username = st.sidebar.text_input("Usuário")
-        password = st.sidebar.text_input("Senha", type="password")
-        if st.sidebar.button("Login"):
-            if username in CREDENTIALS and password == CREDENTIALS[username]:
-                st.sidebar.success(f"Login realizado com sucesso como {username.capitalize()}!")
-                st.session_state.authenticated = True
-                return True, username
-            else:
-                st.sidebar.error("Credenciais incorretas. Tente novamente.")
-                return False, None
-    else:
-        username = st.session_state.username  # Recuperar o nome de usuário da sessão
-        st.sidebar.info(f"Logado como {username.capitalize()}!")
-        return True, username
-
-    return False, None
-
-def logout():
-    st.session_state.authenticated = False
-    st.session_state.username = None
-    st.sidebar.success("Você foi desconectado com sucesso!")
+    username = st.sidebar.text_input("Usuário")
+    password = st.sidebar.text_input("Senha", type="password")
+    if st.sidebar.button("Login"):
+        if username in CREDENTIALS and password == CREDENTIALS[username]:
+            st.sidebar.success(f"Login realizado com sucesso como {username.capitalize()}!")
+            return True
+        else:
+            st.sidebar.error("Credenciais incorretas. Tente novamente.")
+            return False
+    return False
 
 def main():
     # Título fixo na barra lateral
     st.sidebar.title("Add Leads")
 
     # Autenticação no início da execução
-    authenticated, username = authenticate()
+    authenticated = False
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+        authenticated = authenticate()
+        st.session_state.authenticated = authenticated
+    else:
+        authenticated = True
 
     if not authenticated:
         return
@@ -168,10 +161,6 @@ def main():
                 
         else:
             st.subheader("Nenhum resultado encontrado com os filtros selecionados.")
-
-    # Botão para fazer logoff
-    if st.sidebar.button("Sair"):
-        logout()
 
 if __name__ == "__main__":
     main()

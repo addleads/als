@@ -2,7 +2,7 @@ import streamlit as st
 import json
 import os
 import re
-from datetime import datetime, timedelta
+from datetime import datetime
 
 # Credenciais de usuário para autenticação
 CREDENTIALS = {
@@ -140,6 +140,14 @@ def main():
                     else:
                         telefone_html += f"{phone_number}<br>"
                 
+                # Construir o HTML para QSA, se existir
+                qsa_html = ""
+                if 'qsa' in item:
+                    qsa_html += "<ul>"
+                    for qsa_item in item['qsa']:
+                        qsa_html += f"<li>{qsa_item['qual']} - {qsa_item['nome']}</li>"
+                    qsa_html += "</ul>"
+                
                 card_content = "<div class='content'>" + \
                     f"<h3>{item.get('nome', '')}</h3>" + \
                     f"<h3>{item.get('fantasia', '')}</h3>" + \
@@ -154,7 +162,6 @@ def main():
                     f"<p><strong>Rua:</strong> {item.get('logradouro', '')}</p>" + \
                     f"<p><strong>Número:</strong> {item.get('numero', '')}</p>" + \
                     f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
-                    f"<p><strong>Propietario:</strong> {item.get('qsa', '')}</p>" + \
                     f"<p><strong>QSA:</strong> {qsa_html}</p>" + \
                     "</div>"
 

@@ -106,8 +106,11 @@ def main():
     porte = st.sidebar.selectbox('Selecione o porte', portes)
     keyword = st.sidebar.text_input('Pesquisar por palavra-chave')
 
+    # Inicialização do intervalo de datas com base nos dados filtrados
+    data_range = st.session_state.data_range if "data_range" in st.session_state else (None, None)
+    
     # Filtrar dados com base nas seleções do usuário
-    filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, st.session_state.data_range)
+    filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, data_range)
 
     # Slider único para selecionar o intervalo de datas, atualizado conforme os filtros
     st.sidebar.subheader("Intervalo de Data de Abertura")

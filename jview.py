@@ -173,4 +173,4 @@ def main():
             st.error("Formato de data inválido. Utilize o formato dd/mm/aaaa para as datas.")
 
 if __name__ == "__main__":
-    main
+    main()

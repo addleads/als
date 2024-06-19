@@ -106,12 +106,22 @@ def main():
     porte = st.sidebar.selectbox('Selecione o porte', portes)
     keyword = st.sidebar.text_input('Pesquisar por palavra-chave')
 
-    # Slider único para selecionar o intervalo de datas
+    # Filtrar dados com base nas seleções do usuário
+    filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, st.session_state.data_range)
+
+    # Slider único para selecionar o intervalo de datas, atualizado conforme os filtros
     st.sidebar.subheader("Intervalo de Data de Abertura")
-    today = datetime.now().date()
-    default_end_date = today
-    default_start_date = today - timedelta(days=365)  # Um ano atrás
+    if filtered_data:
+        min_date = min(datetime.strptime(item['abertura'], '%d/%m/%Y').date() for item in filtered_data)
+        max_date = max(datetime.strptime(item['abertura'], '%d/%m/%Y').date() for item in filtered_data)
+    else:
+        min_date = datetime.now().date() - timedelta(days=365)
+        max_date = datetime.now().date()
+    
+    default_start_date = min_date
+    default_end_date = max_date
     data_range = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date))
+    st.session_state.data_range = data_range
 
     if st.sidebar.button('Filtrar'):
         try:

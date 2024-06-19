@@ -119,7 +119,11 @@ def main():
     
     # Botão para acionar o filtro com as seleções do usuário
     if st.sidebar.button("Filtrar"):
-        # Filtrar dados com base nas seleções do usuário
+        # Atualizar o intervalo de datas selecionado
+        data_range = (selected_start_date, selected_end_date)
+        st.session_state.data_range = data_range
+        
+        # Filtrar dados com base nas seleções do usuário, incluindo o novo intervalo de datas
         filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, porte, data_range)
 
         # Exibir os dados filtrados diretamente após alterar o slider, sem precisar pressionar Filtrar

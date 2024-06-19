@@ -137,40 +137,42 @@ def main():
     # Exibir os limites de datas
     st.sidebar.write(f"Data mínima: {min_date.strftime('%d/%m/%Y')} | Data máxima: {max_date.strftime('%d/%m/%Y')}")
 
-    if st.sidebar.button('Filtrar'):
-        try:
-            filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, data_range)
-            for item in filtered_data:
-                # Encontrar números de telefone que contenham ") 8" ou ") 9"
-                telephones = re.findall(r"\(\d+\) \d+-\d+", item.get('telefone', ''))
-                telefone_html = ""
-                for phone_number in telephones:
-                    if ") 8" in phone_number or ") 9" in phone_number:
-                        telefone_link = create_whatsapp_link(phone_number)
-                        telefone_html += f"<a href='{telefone_link}'>{phone_number}</a><br>"
-                    else:
-                        telefone_html += f"{phone_number}<br>"
-                
-                card_content = "<div class='content'>" + \
-                    f"<p><strong>CNPJ:</strong> {item.get('cnpj', '')}</p>" + \
-                    f"<p><strong>Nome:</strong> {item.get('nome', '')}</p>" + \
-                    f"<p><strong>Fantasia:</strong> {item.get('fantasia', '')}</p>" + \
-                    f"<p><strong>Abertura:</strong> {item.get('abertura', '')}</p>" + \
-                    f"<p><strong>E-mail:</strong> {item.get('email', '')}</p>" + \
-                    f"<p><strong>Telefone:</strong> {telefone_html}</p>" + \
-                    f"<p><strong>Atividade Principal:</strong> {item.get('atividade_principal', [{}])[0].get('text', '')}</p>" + \
-                    f"<p><strong>Atividades Secundárias:</strong> {item.get('atividades_secundarias', [{}])[0].get('text', '')}</p>" + \
-                    f"<p><strong>Município:</strong> {item.get('municipio', '')}</p>" + \
-                    f"<p><strong>Bairro:</strong> {item.get('bairro', '')}</p>" + \
-                    f"<p><strong>Rua:</strong> {item.get('logradouro', '')}</p>" + \
-                    f"<p><strong>Número:</strong> {item.get('numero', '')}</p>" + \
-                    f"<p><strong>Situação:</strong> {item.get('situacao', '')}</p>" + \
-                    f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
-                    "</div>"
-                st.markdown(card_content, unsafe_allow_html=True)
-                st.markdown('___________')
-        except ValueError:
-            st.error("Formato de data inválido. Utilize o formato dd/mm/aaaa para as datas.")
+    # Exibir os dados filtrados diretamente após alterar o slider, sem precisar pressionar Filtrar
+    if filtered_data:
+        st.subheader("Empresas Filtradas")
+        for item in filtered_data:
+            # Encontrar números de telefone que contenham ") 8" ou ") 9"
+            telephones = re.findall(r"\(\d+\) \d+-\d+", item.get('telefone', ''))
+            telefone_html = ""
+            for phone_number in telephones:
+                if ") 8" in phone_number or ") 9" in phone_number:
+                    telefone_link = create_whatsapp_link(phone_number)
+                    telefone_html += f"<a href='{telefone_link}'>{phone_number}</a><br>"
+                else:
+                    telefone_html += f"{phone_number}<br>"
+            
+            card_content = "<div class='content'>" + \
+                f"<p><strong>CNPJ:</strong> {item.get('cnpj', '')}</p>" + \
+                f"<p><strong>Nome:</strong> {item.get('nome', '')}</p>" + \
+                f"<p><strong>Fantasia:</strong> {item.get('fantasia', '')}</p>" + \
+                f"<p><strong>Abertura:</strong> {item.get('abertura', '')}</p>" + \
+                f"<p><strong>E-mail:</strong> {item.get('email', '')}</p>" + \
+                f"<p><strong>Telefone:</strong> {telefone_html}</p>" + \
+                f"<p><strong>Atividade Principal:</strong> {item.get('atividade_principal', [{}])[0].get('text', '')}</p>" + \
+                f"<p><strong>Atividades Secundárias:</strong> {item.get('atividades_secundarias', [{}])[0].get('text', '')}</p>" + \
+                f"<p><strong>Município:</strong> {item.get('municipio', '')}</p>" + \
+                f"<p><strong>Bairro:</strong> {item.get('bairro', '')}</p>" + \
+                f"<p><strong>Rua:</strong> {item.get('logradouro', '')}</p>" + \
+                f"<p><strong>Número:</strong> {item.get('numero', '')}</p>" + \
+                f"<p><strong>Situação:</strong> {item.get('situacao', '')}</p>" + \
+                f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
+                "</div>"
+            st.markdown(card_content, unsafe_allow_html=True)
+            st.markdown('___________')
+
+    # Mensagem se nenhum dado for filtrado
+    if not filtered_data:
+        st.subheader("Nenhum resultado encontrado com os filtros selecionados.")
 
 if __name__ == "__main__":
     main()

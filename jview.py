@@ -128,7 +128,6 @@ def main():
 
         # Exibir os dados filtrados diretamente após alterar o slider, sem precisar pressionar Filtrar
         if filtered_data:
-            st.subheader("Empresas Filtradas")
             for item in filtered_data:
                 # Encontrar números de telefone que contenham ") 8" ou ") 9"
                 telephones = re.findall(r"\(\d+\) \d+-\d+", item.get('telefone', ''))

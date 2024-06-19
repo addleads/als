@@ -154,6 +154,7 @@ def main():
                     f"<p><strong>Rua:</strong> {item.get('logradouro', '')}</p>" + \
                     f"<p><strong>Número:</strong> {item.get('numero', '')}</p>" + \
                     f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
+                    f"<p><strong>Propietario:</strong> {item.get('qsa', '')}</p>" + \
                     "</div>"
 
                 st.markdown(card_content, unsafe_allow_html=True)

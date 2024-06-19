@@ -143,6 +143,7 @@ def main():
                 # Construir o HTML para QSA, se existir
                 qsa_html = ""
                 if 'qsa' in item:
+                    qsa_html += "<p><strong>Quadro de Sócios:</strong></p>"
                     qsa_html += "<ul>"
                     for qsa_item in item['qsa']:
                         qsa_html += f"<li>{qsa_item['qual']} - {qsa_item['nome']}</li>"
@@ -162,7 +163,7 @@ def main():
                     f"<p><strong>Rua:</strong> {item.get('logradouro', '')}</p>" + \
                     f"<p><strong>Número:</strong> {item.get('numero', '')}</p>" + \
                     f"<p><strong>Porte:</strong> {item.get('porte', '')}</p>" + \
-                    f"<p><strong>QSA:</strong> {qsa_html}</p>" + \
+                    f"{qsa_html}" + \
                     "</div>"
 
                 st.markdown(card_content, unsafe_allow_html=True)

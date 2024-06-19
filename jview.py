@@ -129,11 +129,6 @@ def main():
     st.sidebar.subheader("Intervalo de Data de Abertura")
     selected_start_date, selected_end_date = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date), format="DD/MM/YYYY", key="date_slider")
     
-    # Botão para resetar o intervalo de datas para os valores padrão
-    if st.sidebar.button("Resetar Datas"):
-        selected_start_date = default_start_date
-        selected_end_date = default_end_date
-    
     st.session_state.data_range = (selected_start_date, selected_end_date)
 
     # Exibir os limites de datas

@@ -52,7 +52,6 @@ def create_whatsapp_link(phone_number):
     return f"https://wa.me/55{phone_number.replace(' ', '').replace('-', '').replace('(', '').replace(')', '')}"
 
 def authenticate():
-    st.sidebar.title("Add Leads")
     username = st.sidebar.text_input("Usuário")
     password = st.sidebar.text_input("Senha", type="password")
     if st.sidebar.button("Login"):
@@ -65,6 +64,8 @@ def authenticate():
     return False
 
 def main():
+    # Título fixo na barra lateral
+    st.sidebar.title("Add Leads")
 
     # Autenticação no início da execução
     authenticated = False

@@ -142,8 +142,8 @@ def main():
                 
                 card_content = "<div class='content'>" + \
                     f"<h3>{item.get('nome', '')}</h3></p>" + \
-                    f"<h3>{item.get('fantasia', '')}</h3></p>" +
-                    f"<p><strong>CNPJ:</strong> {item.get('cnpj', '')}</p>" + \
+                    f"<h3>{item.get('fantasia', '')}</h3></p>" + \
+                    f"<strong>CNPJ:</strong> {item.get('cnpj', '')}" + \
                     f"<p><strong>Abertura:</strong> {item.get('abertura', '')}</p>" + \
                     f"<p><strong>E-mail:</strong> {item.get('email', '')}</p>" + \
                     f"<p><strong>Telefone:</strong> {telefone_html}</p>" + \

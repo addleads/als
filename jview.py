@@ -112,8 +112,7 @@ def main():
     # Filtrar dados com base nas seleções do usuário
     filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, data_range)
 
-    # Slider único para selecionar o intervalo de datas, atualizado conforme os filtros
-    st.sidebar.subheader("Intervalo de Data de Abertura")
+    # Obter as datas mínima e máxima dos dados filtrados para o slider
     if filtered_data:
         min_date = min(datetime.strptime(item['abertura'], '%d/%m/%Y').date() for item in filtered_data)
         max_date = max(datetime.strptime(item['abertura'], '%d/%m/%Y').date() for item in filtered_data)
@@ -121,9 +120,12 @@ def main():
         min_date = datetime.now().date() - timedelta(days=365)
         max_date = datetime.now().date()
     
+    # Garantir que o intervalo de datas do slider seja do tipo date
     default_start_date = min_date
     default_end_date = max_date
-    data_range = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date))
+
+    # Slider único para selecionar o intervalo de datas, atualizado conforme os filtros
+    data_range = st.sidebar.slider("Intervalo de Data", min_value=default_start_date, max_value=default_end_date, value=(default_start_date, default_end_date), format="DD/MM/YYYY")
     st.session_state.data_range = data_range
 
     if st.sidebar.button('Filtrar'):

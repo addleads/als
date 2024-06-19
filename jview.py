@@ -100,7 +100,7 @@ def main():
 
     city = st.sidebar.selectbox('Selecione a cidade', cities)
     selected_cnaes = st.sidebar.multiselect('Selecione o(s) CNAE(s)', cnae_codes, format_func=lambda x: cnaes_dict.get(x, ""))
-    portes_selected = st.sidebar.multiselect('Selecione o(s) porte(s)', portes, default=portes)
+    portes_selected = [p for p in portes if st.sidebar.checkbox(p)]
     keyword = st.sidebar.text_input('Pesquisar por palavra-chave')
 
     # Inicialização do intervalo de datas com base nos dados filtrados

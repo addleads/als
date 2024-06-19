@@ -68,8 +68,17 @@ def authenticate():
 def main():
     st.title('Empresas')
 
-    # Autenticação
-    authenticated = authenticate()
+    # Autenticação no início da execução
+    authenticated = False
+    if "authenticated" not in st.session_state:
+        st.session_state.authenticated = False
+
+    if not st.session_state.authenticated:
+        authenticated = authenticate()
+        st.session_state.authenticated = authenticated
+    else:
+        authenticated = True
+
     if not authenticated:
         return
 

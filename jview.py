@@ -108,7 +108,7 @@ def main():
 
     # Encontrar a data mínima e máxima dos dados não filtrados
     if json_data_sorted:
-        min_date = datetime.strptime(json_data_sorted[-1]['abertura'], '%d/%m/%Y').date()
+        min_date = datetime.strptime(json_data_sorted[-1]['abertura'], '/%Y').date()
         max_date = datetime.strptime(json_data_sorted[0]['abertura'], '%d/%m/%Y').date()
     else:
         min_date = datetime.now().date()

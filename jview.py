@@ -2,12 +2,13 @@ import streamlit as st
 import json
 import os
 import re
-from datetime import datetime
+from datetime import datetime, timedelta
 
 # Credenciais de usuário para autenticação
 CREDENTIALS = {
+    "admin": "admin",
     "francisco": "francisco",
-    "adm": "adm123",
+    "adm": "adm",
     "wingriddy": "wingriddy"
 }
 
@@ -97,12 +98,17 @@ def main():
     porte = st.sidebar.selectbox('Selecione o porte', portes)
     keyword = st.sidebar.text_input('Pesquisar por palavra-chave')
 
-    data_inicio = st.sidebar.date_input("Data de Início", min_value=None, max_value=None, key='inicio')
-    data_fim = st.sidebar.date_input("Data Final", min_value=None, max_value=None, key='fim')
+    # Slider para selecionar o intervalo de datas
+    st.sidebar.subheader("Intervalo de Data de Abertura")
+    today = datetime.now().date()
+    default_end_date = today
+    default_start_date = today - timedelta(days=365)  # Um ano atrás
+    data_inicio = st.sidebar.slider("Data de Início", min_value=default_start_date, max_value=default_end_date, value=default_start_date)
+    data_fim = st.sidebar.slider("Data Final", min_value=default_start_date, max_value=default_end_date, value=default_end_date)
 
     if st.sidebar.button('Filtrar'):
         try:
-            filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, data_inicio.strftime('%d/%m/%Y') if data_inicio else None, data_fim.strftime('%d/%m/%Y') if data_fim else None)
+            filtered_data = filter_json(json_data_sorted, city, selected_cnaes, keyword, situacao, porte, data_inicio.strftime('%d/%m/%Y'), data_fim.strftime('%d/%m/%Y'))
             for item in filtered_data:
                 # Encontrar números de telefone que contenham ") 8" ou ") 9"
                 telephones = re.findall(r"\(\d+\) \d+-\d+", item.get('telefone', ''))

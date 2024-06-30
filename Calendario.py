@@ -53,8 +53,7 @@ def main():
 
     # Adicionar filtro de data na sidebar
     with st.sidebar:
-        st.write("## Adicionar agenda")
-        selected_date = st.date_input("Selecione uma data", value=date.today())
+        selected_date = st.date_input("## Adicionar agenda", value=date.today())
         year, month, day = selected_date.year, selected_date.month, selected_date.day
 
         # Carregar dados do arquivo JSON

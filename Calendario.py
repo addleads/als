@@ -14,7 +14,7 @@ def create_calendar(year, month, dados):
         "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
         "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
     ]
-    st.write("<h4 style='text-align: center;'>Agenda ADD Soluções - {} de {}</h4>".format(month_names[month-1], year), unsafe_allow_html=True)
+    st.write("<h4 style='text-align: center;'>Agenda - {} de {}</h4>".format(month_names[month-1], year), unsafe_allow_html=True)
     days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
 
     # Criar a tabela do calendário

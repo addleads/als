@@ -89,9 +89,9 @@ def main():
                 st.success("Informação adicionada à agenda com sucesso!")
 
         st.write("## Excluir agenda")
-        delete_date = st.date_input("Selecione a data", value=date.today(), key="delete_date")
+        delete_date = st.date_input("", value=date.today(), key="delete_date")
 
-        if st.button("Excluir da agenda"):
+        if st.button("Excluir"):
             # Excluir informação da agenda
             for item in dados:
                 if item['dia'] == delete_date.day and item['mes'] == delete_date.month and item['ano'] == delete_date.year:

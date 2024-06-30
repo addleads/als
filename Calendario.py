@@ -94,31 +94,31 @@ def main():
         time.sleep(5)
         st.experimental_rerun()
 
-    # Seção de exclusão
-    delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
+# Seção de exclusão
+delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
 
-    if st.button("Excluir"):
-        # Excluir informação da agenda
-        for item in dados:
-            if item['dia'] == delete_date.day and item['mes'] == delete_date.month and item['ano'] == delete_date.year:
-                dados.remove(item)
-                # Salvar os dados atualizados no arquivo JSON
-                with open('agenda.json', 'w', encoding='utf-8') as file:
-                    json.dump(dados, file, ensure_ascii=False, indent=4)
-                st.success("Item excluído com sucesso!")
-                break
-        else:
-            st.error("Nenhum item encontrado com a data informada.")
+if st.button("Excluir"):
+    # Excluir informação da agenda
+    for item in dados:
+        if item['dia'] == delete_date.day and item['mes'] == delete_date.month and item['ano'] == delete_date.year:
+            dados.remove(item)
+            # Salvar os dados atualizados no arquivo JSON
+            with open('agenda.json', 'w', encoding='utf-8') as file:
+                json.dump(dados, file, ensure_ascii=False, indent=4)
+            st.success("Item excluído com sucesso!")
+            break
+    else:
+        st.error("Nenhum item encontrado com a data informada.")
 
-    # Botão para exportar agenda.json
-    if st.sidebar.button("Exportar"):
-        st.download_button(
-            label="Baixar agenda.json",
-            data=json.dumps(dados, ensure_ascii=False, indent=4),
-            file_name="agenda.json",
-            mime="application/json",
-        )
-        st.success("Agenda exportada com sucesso!")
+# Botão para exportar agenda.json
+if st.button("Exportar"):
+    st.download_button(
+        label="Baixar agenda.json",
+        data=json.dumps(dados, ensure_ascii=False, indent=4),
+        file_name="agenda.json",
+        mime="application/json",
+    )
+    st.success("Agenda exportada com sucesso!")
 
 if __name__ == "__main__":
     main()

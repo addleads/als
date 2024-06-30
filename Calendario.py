@@ -106,7 +106,7 @@ def main():
     # Atualizar a página a cada 5 segundos
     while True:
         create_calendar(year, month, dados)
-        time.sleep(5)
+        time.sleep(30)
         st.experimental_rerun()
 
 if __name__ == "__main__":

@@ -7,6 +7,7 @@ import os
 
 def create_calendar(year, month, dados):
     # Código para criar o calendário...
+    pass
 
 def main():
     st.set_page_config(page_title="Calendário", layout="wide")

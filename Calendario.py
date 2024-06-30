@@ -3,6 +3,7 @@ import calendar
 from datetime import datetime, date
 import json
 from unidecode import unidecode
+import time
 
 def create_calendar(year, month, dados):
     # Criar o calendário para o mês e ano selecionados
@@ -86,6 +87,7 @@ def main():
                 with open('agenda.json', 'w', encoding='utf-8') as file:
                     json.dump(dados, file, ensure_ascii=False, indent=4)
                 st.success("Informação adicionada à agenda com sucesso!")
+                st.experimental_rerun()  # Recarregar a página
 
         delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
 
@@ -98,11 +100,17 @@ def main():
                     with open('agenda.json', 'w', encoding='utf-8') as file:
                         json.dump(dados, file, ensure_ascii=False, indent=4)
                     st.success("Item excluído com sucesso!")
+                    st.experimental_rerun()  # Recarregar a página
                     break
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
     create_calendar(year, month, dados)
+
+    # Recarregar a página a cada 3 segundos
+    while True:
+        time.sleep(3)
+        st.experimental_rerun()
 
 if __name__ == "__main__":
     main()

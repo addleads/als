@@ -3,7 +3,6 @@ import calendar
 from datetime import datetime, date
 import json
 from unidecode import unidecode
-import os
 
 def create_calendar(year, month, dados):
     # Criar o calendário para o mês e ano selecionados
@@ -15,12 +14,11 @@ def create_calendar(year, month, dados):
         "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
     ]
     st.write("<h4 style='text-align: center;'>Agenda ADD Soluções - {} de {}</h4>".format(month_names[month-1], year), unsafe_allow_html=True)
-    days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]
+    days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
 
     # Criar a tabela do calendário
     table = "<table style='width:100%; border-collapse: collapse;'>"
     table += "<colgroup>"
-    table += "<col style='width: 150px;'>"
     table += "<col style='width: 150px;'>"
     table += "<col style='width: 150px;'>"
     table += "<col style='width: 150px;'>"
@@ -35,7 +33,7 @@ def create_calendar(year, month, dados):
 
     for week in cal:
         table += "<tr>"
-        for day in week:
+        for day in week[:-1]:
             if day == 0:
                 table += "<td style='height: 35mm; padding: 5px; position: relative;'></td>"
             else:
@@ -59,11 +57,8 @@ def main():
         year, month, day = selected_date.year, selected_date.month, selected_date.day
 
         # Carregar dados do arquivo JSON
-        if os.path.exists('agenda.json'):
-            with open('agenda.json', 'r', encoding='utf-8') as file:
-                dados = json.load(file)
-        else:
-            dados = []
+        with open('agenda.json', 'r', encoding='utf-8') as file:
+            dados = json.load(file)
 
         cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati']
         cidade = st.selectbox("Cidade", cidades, key="cidade_add")
@@ -91,7 +86,6 @@ def main():
                 with open('agenda.json', 'w', encoding='utf-8') as file:
                     json.dump(dados, file, ensure_ascii=False, indent=4)
                 st.success("Informação adicionada à agenda com sucesso!")
-                st.experimental_rerun()  # Recarregar a página
 
         delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
 
@@ -104,7 +98,6 @@ def main():
                     with open('agenda.json', 'w', encoding='utf-8') as file:
                         json.dump(dados, file, ensure_ascii=False, indent=4)
                     st.success("Item excluído com sucesso!")
-                    st.experimental_rerun()  # Recarregar a página
                     break
             else:
                 st.error("Nenhum item encontrado com a data informada.")

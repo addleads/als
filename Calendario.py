@@ -89,7 +89,7 @@ def main():
                 st.success("Informação adicionada à agenda com sucesso!")
 
         st.write("## Excluir agenda")
-        delete_date = st.date_input("", value=date.today(), key="delete_date")
+        delete_date = st.date_input(value=date.today(), key="delete_date")
 
         if st.button("Excluir"):
             # Excluir informação da agenda

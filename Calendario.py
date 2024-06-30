@@ -3,6 +3,7 @@ import calendar
 from datetime import datetime, date
 import json
 from unidecode import unidecode
+import time
 
 def create_calendar(year, month, dados):
     # Criar o calendário para o mês e ano selecionados
@@ -102,7 +103,11 @@ def main():
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
-    create_calendar(year, month, dados)
+    # Atualizar a página a cada 5 segundos
+    while True:
+        create_calendar(year, month, dados)
+        time.sleep(5)
+        st.experimental_rerun()
 
 if __name__ == "__main__":
     main()

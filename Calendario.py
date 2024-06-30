@@ -53,7 +53,7 @@ def main():
 
     # Adicionar filtro de data na sidebar
     with st.sidebar:
-        st.write("## Adicionar informação na agenda")
+        st.write("## Adicionar agenda")
         selected_date = st.date_input("Selecione uma data", value=date.today())
         year, month, day = selected_date.year, selected_date.month, selected_date.day
 
@@ -66,7 +66,7 @@ def main():
         cliente = st.text_input("Cliente", key="cliente_add")
         servico = st.text_input("Serviço", key="servico_add")
 
-        if st.button("Adicionar à agenda"):
+        if st.button("Adicionar"):
             # Verificar se a mesma informação já existe na agenda
             existing_item = next((item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year and item['cidade'] == cidade and item['cliente'] == cliente and item['servico'] == servico), None)
             if existing_item:
@@ -88,7 +88,7 @@ def main():
                     json.dump(dados, file, ensure_ascii=False, indent=4)
                 st.success("Informação adicionada à agenda com sucesso!")
 
-        st.write("## Excluir informação da agenda")
+        st.write("## Excluir agenda")
         delete_date = st.date_input("Selecione a data", value=date.today(), key="delete_date")
 
         if st.button("Excluir da agenda"):

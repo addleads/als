@@ -6,8 +6,49 @@ from unidecode import unidecode
 import os
 
 def create_calendar(year, month, dados):
-    # Código para criar o calendário...
-    pass
+    # Criar o calendário para o mês e ano selecionados
+    cal = calendar.monthcalendar(year, month)
+
+    # Criar o cabeçalho com os dias da semana
+    month_names = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ]
+    st.write("<h4 style='text-align: center;'>Agenda ADD Soluções - {} de {}</h4>".format(month_names[month-1], year), unsafe_allow_html=True)
+    days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]
+
+    # Criar a tabela do calendário
+    table = "<table style='width:100%; border-collapse: collapse;'>"
+    table += "<colgroup>"
+    table += "<col style='width: 150px;'>"
+    table += "<col style='width: 150px;'>"
+    table += "<col style='width: 150px;'>"
+    table += "<col style='width: 150px;'>"
+    table += "<col style='width: 150px;'>"
+    table += "<col style='width: 150px;'>"
+    table += "<col style='width: 150px;'>"
+    table += "</colgroup>"
+    table += "<tr>"
+    for day in days_of_week:
+        table += "<th style='padding: 5px;'>{}</th>".format(day)
+    table += "</tr>"
+
+    for week in cal:
+        table += "<tr>"
+        for day in week:
+            if day == 0:
+                table += "<td style='height: 35mm; padding: 5px; position: relative;'></td>"
+            else:
+                # Verificar se há informações para o dia atual
+                info_dia = next((item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year), None)
+                if info_dia:
+                    table += "<td style='height: 35mm; padding: 5px; position: relative;'><div style='position: absolute; top: 0; left: 5px;'>{} - {}</div><div style='margin-top: 5px;'>{}</div><div style='margin-top: 5px;'>{}</div></td>".format(day, unidecode(info_dia['cidade']), unidecode(info_dia['cliente']), unidecode(info_dia['servico']))
+                else:
+                    table += "<td style='height: 35mm; padding: 5px; position: relative;'><div style='position: absolute; top: 0; left: 5px;'>{}</div></td>".format(day)
+        table += "</tr>"
+
+    table += "</table>"
+    st.markdown(table, unsafe_allow_html=True)
 
 def main():
     st.set_page_config(page_title="Calendário", layout="wide")

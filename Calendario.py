@@ -56,8 +56,17 @@ def main():
         with open('agenda.json', 'r', encoding='utf-8') as file:
             dados = json.load(file)
 
+        # Lista de cidades
         cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati']
+        
+        # Campo para selecionar ou adicionar cidade
         cidade = st.selectbox("Cidade", cidades)
+        nova_cidade = st.text_input("Ou adicione uma nova cidade:", "")
+
+        # Use a nova cidade se o campo não estiver vazio
+        if nova_cidade:
+            cidade = nova_cidade
+
         cliente = st.text_input("Cliente")
         servico = st.text_input("Serviço")
 

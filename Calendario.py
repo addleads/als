@@ -17,10 +17,10 @@ def create_calendar(year, month, dados):
     city_colors = {
         "Abaiara": "#690202",  # Vermelho escuro
         "Barro": "#692402",    # Laranja escuro
-        "B. Santo": "#694a02",  # Amarelo escuro
+        "Brejo Santo": "#694a02",  # Amarelo escuro
         "Mauriti": "#696702",  # Verde escuro
         "Milagres": "#406902",  # Verde oliva escuro
-        "M. Velha": "#026913",  # Verde escuro específico
+        "Missão Velha": "#026913",  # Verde escuro específico
         "Penaforte": "#025b69",  # Azul escuro
         "Porteitas": "#021f69",  # Azul marinho
         "Jati": "#400269",       # Roxo escuro
@@ -46,7 +46,7 @@ def create_calendar(year, month, dados):
                         cidade = unidecode(entry['cidade'])
                         cliente = unidecode(entry['cliente'])
                         servico = unidecode(entry['servico'])
-                        color = city_colors.get(cidade, "#4B4B4B")  # Cor padrão se a cidade não estiver no dicionário
+                        color = city_colors.get(cidade, "#000000")  # Cor padrão se a cidade não estiver no dicionário
                         cell_content += (
                             f"<div style='text-align: center; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
                             f"<div style='text-align: center; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
@@ -69,7 +69,7 @@ def create_calendar(year, month, dados):
     st.markdown(table, unsafe_allow_html=True)
 
 def main():
-    st.set_page_config(page_title="Calendário", layout="wide")
+    st.set_page_config(page_title="Calendário", layout="centered", initial_sidebar_state="collapsed")  # Sidebar oculta ao carregar
     
     with st.sidebar:
         selected_date = st.date_input("Adicionar agenda", value=date.today())
@@ -86,7 +86,7 @@ def main():
         cliente = st.text_input("Cliente")
         
         # Lista de cidades com uma opção para adicionar nova cidade
-        cidades = ['Abaiara', 'Barro', 'B. Santo', 'Mauriti', 'Milagres', 'M. Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
+        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         
         cidade = st.selectbox("Cidade", cidades)
 

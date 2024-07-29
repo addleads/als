@@ -28,7 +28,7 @@ def create_calendar(year, month, dados):
     }
 
     # Criar a tabela do calendário
-    table = "<table style='width:100%; border-collapse: collapse;'>"
+    table = "<table style='width:100%; height: 100vh; border-collapse: collapse;'>"
     table += "<tr>" + "".join(f"<th style='padding: 5px; text-align: center;'>{day}</th>" for day in days_of_week) + "</tr>"
 
     for week in cal:
@@ -52,13 +52,13 @@ def create_calendar(year, month, dados):
                             f"<div style='text-align: center; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
                         )
                     table += (
-                        f"<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
+                        f"<td style='height: 100px; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
                         f"{cell_content}"
                         "</td>"
                     )
                 else:
                     table += (
-                        "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
+                        "<td style='height: 100px; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
                         f"<div style='margin: 0;'>{day}</div>"
                         "<div style='text-align: center;'></div>"
                         "</td>"
@@ -69,7 +69,7 @@ def create_calendar(year, month, dados):
     st.markdown(table, unsafe_allow_html=True)
 
 def main():
-    st.set_page_config(page_title="Calendário", layout="centered", initial_sidebar_state="collapsed")  # Sidebar oculta ao carregar
+    st.set_page_config(page_title="Calendário", layout="wide", initial_sidebar_state="collapsed")  # Sidebar oculta ao carregar
     
     with st.sidebar:
         selected_date = st.date_input("Adicionar agenda", value=date.today())

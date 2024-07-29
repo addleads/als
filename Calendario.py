@@ -17,10 +17,10 @@ def create_calendar(year, month, dados):
     city_colors = {
         "Abaiara": "#690202",  # Vermelho escuro
         "Barro": "#692402",    # Laranja escuro
-        "Brejo Santo": "#694a02",  # Amarelo escuro
+        "B. Santo": "#694a02",  # Amarelo escuro
         "Mauriti": "#696702",  # Verde escuro
         "Milagres": "#406902",  # Verde oliva escuro
-        "Missão Velha": "#026913",  # Verde escuro específico
+        "M. Velha": "#026913",  # Verde escuro específico
         "Penaforte": "#025b69",  # Azul escuro
         "Porteitas": "#021f69",  # Azul marinho
         "Jati": "#400269",       # Roxo escuro
@@ -86,7 +86,7 @@ def main():
         cliente = st.text_input("Cliente")
         
         # Lista de cidades com uma opção para adicionar nova cidade
-        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
+        cidades = ['Abaiara', 'Barro', 'B. Santo', 'Mauriti', 'Milagres', 'M. Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         
         cidade = st.selectbox("Cidade", cidades)
 

@@ -23,7 +23,8 @@ def create_calendar(year, month, dados):
         "Missão Velha": "#026913",  # Verde escuro específico
         "Penaforte": "#025b69",  # Azul escuro
         "Porteitas": "#021f69",  # Azul marinho
-        "Jati": "#400269"        # Roxo escuro
+        "Jati": "#400269",       # Roxo escuro
+        "ADICIONAR NOVA CIDADE": "#4B0082"  # Índigo escuro
     }
 
     # Criar a tabela do calendário
@@ -45,7 +46,7 @@ def create_calendar(year, month, dados):
                         cidade = unidecode(entry['cidade'])
                         cliente = unidecode(entry['cliente'])
                         servico = unidecode(entry['servico'])
-                        color = city_colors.get(cidade, "white")  # Cor padrão se a cidade não estiver no dicionário
+                        color = city_colors.get(cidade, "#000000")  # Cor padrão se a cidade não estiver no dicionário
                         cell_content += (
                             f"<div style='text-align: center; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
                             f"<div style='text-align: center;'>{servico}</div>"

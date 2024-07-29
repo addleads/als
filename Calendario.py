@@ -56,29 +56,25 @@ def main():
         with open('agenda.json', 'r', encoding='utf-8') as file:
             dados = json.load(file)
 
-        # Lista de cidades com uma opção para adicionar nova cidade
-        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
-        
-        cidade = st.selectbox("Cidade", cidades)
-
-        # Campo para adicionar nova cidade se a opção for selecionada
-        if cidade == "ADICIONAR NOVA CIDADE":
-            cidade = st.text_input("Digite o nome da nova cidade:", "")
-
-
-
-        # Lista de cidades com uma opção para adicionar nova cidade
-        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
-        
-        cidade = st.selectbox("Cidade", cidades)
-
-        # Campo para adicionar nova cidade se a opção for selecionada
-        if cidade == "ADICIONAR NOVA CIDADE":
-            cidade = st.text_input("Digite o nome da nova cidade:", "")
-    
-        
-
+        # Campo para o cliente
         cliente = st.text_input("Cliente")
+        
+        # Primeira lista de cidades com uma opção para adicionar nova cidade
+        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
+        
+        cidade = st.selectbox("Cidade", cidades)
+
+        # Campo para adicionar nova cidade se a opção for selecionada
+        if cidade == "ADICIONAR NOVA CIDADE":
+            cidade = st.text_input("Digite o nome da nova cidade:", "")
+
+        # Segunda lista de cidades com uma opção para adicionar nova cidade
+        cidade2 = st.selectbox("Cidade (opcional)", cidades)
+
+        # Campo para adicionar nova cidade se a opção for selecionada
+        if cidade2 == "ADICIONAR NOVA CIDADE":
+            cidade2 = st.text_input("Digite o nome da nova cidade:", "")
+
         servico = st.text_input("Serviço")
 
         if st.button("Adicionar"):
@@ -87,11 +83,12 @@ def main():
                 "mes": month,
                 "ano": year,
                 "cidade": cidade,
+                "cidade2": cidade2,  # Adiciona a segunda cidade ao novo item
                 "cliente": cliente,
                 "servico": servico
             }
             # Verificar se a mesma informação já existe na agenda
-            existing_item = next((item for item in dados if item['dia'] == new_item['dia'] and item['mes'] == new_item['mes'] and item['ano'] == new_item['ano'] and item['cidade'] == cidade and item['cliente'] == cliente and item['servico'] == servico), None)
+            existing_item = next((item for item in dados if item['dia'] == new_item['dia'] and item['mes'] == new_item['mes'] and item['ano'] == new_item['ano'] and item['cidade'] == cidade and item['cidade2'] == cidade2 and item['cliente'] == cliente and item['servico'] == servico), None)
             if existing_item:
                 st.error("Esta informação já existe na agenda.")
             else:

@@ -15,15 +15,15 @@ def create_calendar(year, month, dados):
 
     # Dicionário de cores escuras para as cidades
     city_colors = {
-        "Abaiara": "#4CAF50",  # Verde escuro
-        "Barro": "#2196F3",    # Azul escuro
-        "Brejo Santo": "#F44336",  # Vermelho escuro
-        "Mauriti": "#FF5722",  # Laranja escuro
-        "Milagres": "#FFC107",  # Amarelo escuro
-        "Missão Velha": "#9C27B0",  # Roxo escuro
-        "Penaforte": "#607D8B",  # Cinza escuro
-        "Porteitas": "#3F51B5",  # Azul marinho
-        "Jati": "#795548"        # Marrom escuro
+        "Abaiara": "#690202",  # Verde escuro
+        "Barro": "#692402",    # Azul escuro
+        "Brejo Santo": "#694a02",  # Vermelho escuro
+        "Mauriti": "#696702",  # Laranja escuro
+        "Milagres": "#406902",  # Amarelo escuro
+        "Missão Velha": "#026913",  # Roxo escuro
+        "Penaforte": "#025b69",  # Cinza escuro
+        "Porteitas": "#021f69",  # Azul marinho
+        "Jati": "#400269"        # Marrom escuro
     }
 
     # Criar a tabela do calendário

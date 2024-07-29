@@ -21,14 +21,25 @@ def create_calendar(year, month, dados):
         table += "<tr>"
         for day in week:
             if day == 0:
-                table += "<td style='height: 35mm; padding: 5px;'></td>"  # Célula vazia
+                table += "<td style='height: 35mm; padding: 5px; text-align: center;'></td>"  # Célula vazia
             else:
                 # Verificar se há informações para o dia atual
                 info_dia = next((item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year), None)
                 if info_dia:
-                    table += "<td style='height: 35mm; padding: 5px; position: relative;'><div style='position: absolute; top: 0; left: 5px; text-align: center;'>{} - {}</div><div style='margin-top: 5px; text-align: center;'>{}</div><div style='margin-top: 5px; text-align: center;'>{}</div></td>".format(day, unidecode(info_dia['cidade']), unidecode(info_dia['cliente']), unidecode(info_dia['servico']))
+                    table += (
+                        "<td style='height: 35mm; padding: 5px; text-align: center;'>"
+                        f"<div style='margin: 0; font-weight: bold;'>{day}</div>"
+                        f"<div>{unidecode(info_dia['cidade'])}</div>"
+                        f"<div>{unidecode(info_dia['cliente'])}</div>"
+                        f"<div>{unidecode(info_dia['servico'])}</div>"
+                        "</td>"
+                    )
                 else:
-                    table += "<td style='height: 35mm; padding: 5px; position: relative; text-align: center;'><div style='position: absolute; top: 0; left: 5px;'>{}</div></td>".format(day)
+                    table += (
+                        "<td style='height: 35mm; padding: 5px; text-align: center;'>"
+                        f"<div style='margin: 0;'>{day}</div>"
+                        "</td>"
+                    )
         table += "</tr>"
 
     table += "</table>"

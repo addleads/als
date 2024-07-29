@@ -95,6 +95,37 @@ def main():
                 json.dump(dados, file, ensure_ascii=False, indent=4)
             st.success("Informação adicionada à agenda com sucesso!")
 
+        # Seção para editar informações
+        st.subheader("Editar Informações")
+        edit_date = st.date_input("Selecionar data para editar", value=date.today())
+        edit_year, edit_month = edit_date.year, edit_date.month
+
+        # Coletar informações para a data selecionada
+        edit_info = [item for item in dados if item['dia'] == edit_date.day and item['mes'] == edit_month and item['ano'] == edit_year]
+
+        if edit_info:
+            st.write(f"Inserções para {edit_date}:")
+            for idx, entry in enumerate(edit_info):
+                st.write(f"Entrada {idx + 1}:")
+                new_cidade = st.text_input("Cidade", value=entry['cidade'], key=f"cidade_{idx}")
+                new_cliente = st.text_input("Cliente", value=entry['cliente'], key=f"cliente_{idx}")
+                new_servico = st.text_input("Serviço", value=entry['servico'], key=f"servico_{idx}")
+
+                if st.button(f"Salvar Alterações {idx + 1}", key=f"save_{idx}"):
+                    # Atualiza a entrada correspondente
+                    dados[dados.index(entry)] = {
+                        "dia": entry['dia'],
+                        "mes": entry['mes'],
+                        "ano": entry['ano'],
+                        "cidade": new_cidade,
+                        "cliente": new_cliente,
+                        "servico": new_servico
+                    }
+                    # Salvar os dados atualizados no arquivo JSON
+                    with open('agenda.json', 'w', encoding='utf-8') as file:
+                        json.dump(dados, file, ensure_ascii=False, indent=4)
+                    st.success("Alterações salvas com sucesso!")
+
         delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
 
         if st.button("Excluir"):

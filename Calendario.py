@@ -24,15 +24,16 @@ def create_calendar(year, month, dados):
                 table += "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center;'></td>"  # Célula vazia
             else:
                 # Verificar se há informações para o dia atual
-                info_dia = next((item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year), None)
+                info_dia = [item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year]
                 if info_dia:
-                    table += (
-                        "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
-                        f"<div style='margin: 0; font-weight: bold; text-align: center;'>{day}</div>"
-                        f"<div style='text-align: center;'>{unidecode(info_dia['cidade'])} - {unidecode(info_dia['cliente'])}</div>"
-                        f"<div style='text-align: center;'>{unidecode(info_dia['servico'])}</div>"
-                        "</td>"
-                    )
+                    for entry in info_dia:
+                        table += (
+                            "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
+                            f"<div style='margin: 0; font-weight: bold; text-align: center;'>{day}</div>"
+                            f"<div style='text-align: center;'>{unidecode(entry['cidade'])} - {unidecode(entry['cliente'])}</div>"
+                            f"<div style='text-align: center;'>{unidecode(entry['servico'])}</div>"
+                            "</td>"
+                        )
                 else:
                     table += (
                         "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
@@ -53,8 +54,11 @@ def main():
         year, month = selected_date.year, selected_date.month
 
         # Carregar dados do arquivo JSON
-        with open('agenda.json', 'r', encoding='utf-8') as file:
-            dados = json.load(file)
+        try:
+            with open('agenda.json', 'r', encoding='utf-8') as file:
+                dados = json.load(file)
+        except FileNotFoundError:
+            dados = []  # Inicializa dados como uma lista vazia se o arquivo não existir
 
         # Campo para o cliente
         cliente = st.text_input("Cliente")
@@ -79,18 +83,13 @@ def main():
                 "cliente": cliente,
                 "servico": servico
             }
-            # Verificar se a mesma informação já existe na agenda
-            existing_item = next((item for item in dados if item['dia'] == new_item['dia'] and item['mes'] == new_item['mes'] and item['ano'] == new_item['ano'] and item['cidade'] == cidade and item['cliente'] == cliente and item['servico'] == servico), None)
-            if existing_item:
-                st.error("Esta informação já existe na agenda.")
-            else:
-                # Adicionar nova informação à agenda
-                dados.append(new_item)
+            # Adicionar nova informação à agenda
+            dados.append(new_item)
 
-                # Salvar os dados atualizados no arquivo JSON
-                with open('agenda.json', 'w', encoding='utf-8') as file:
-                    json.dump(dados, file, ensure_ascii=False, indent=4)
-                st.success("Informação adicionada à agenda com sucesso!")
+            # Salvar os dados atualizados no arquivo JSON
+            with open('agenda.json', 'w', encoding='utf-8') as file:
+                json.dump(dados, file, ensure_ascii=False, indent=4)
+            st.success("Informação adicionada à agenda com sucesso!")
 
         delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
 

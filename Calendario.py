@@ -13,6 +13,19 @@ def create_calendar(year, month, dados):
     st.write("<h4 style='text-align: center;'>Agenda - {} de {}</h4>".format(month_names[month-1], year), unsafe_allow_html=True)
     days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
 
+    # Dicionário de cores para as cidades
+    city_colors = {
+        "Abaiara": "lightgreen",
+        "Barro": "lightblue",
+        "Brejo Santo": "lightcoral",
+        "Mauriti": "salmon",
+        "Milagres": "lightyellow",
+        "Missão Velha": "lightpink",
+        "Penaforte": "lightgray",
+        "Porteitas": "lightgoldenrodyellow",
+        "Jati": "lightcyan"
+    }
+
     # Criar a tabela do calendário
     table = "<table style='width:100%; border-collapse: collapse;'>"
     table += "<tr>" + "".join(f"<th style='padding: 5px; text-align: center;'>{day}</th>" for day in days_of_week) + "</tr>"
@@ -29,9 +42,13 @@ def create_calendar(year, month, dados):
                     # Adicionar as informações em linhas separadas
                     cell_content = f"<div style='margin: 0; font-weight: bold; text-align: center;'>{day}</div>"
                     for entry in info_dia:
+                        cidade = unidecode(entry['cidade'])
+                        cliente = unidecode(entry['cliente'])
+                        servico = unidecode(entry['servico'])
+                        color = city_colors.get(cidade, "white")  # Cor padrão se a cidade não estiver no dicionário
                         cell_content += (
-                            f"<div style='text-align: center;'>{unidecode(entry['cidade'])} - {unidecode(entry['cliente'])}</div>"
-                            f"<div style='text-align: center;'>{unidecode(entry['servico'])}</div>"
+                            f"<div style='text-align: center; background-color: {color};'>{cidade} - {cliente}</div>"
+                            f"<div style='text-align: center;'>{servico}</div>"
                         )
                     table += (
                         f"<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"

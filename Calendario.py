@@ -62,7 +62,7 @@ def main():
         cidade = st.selectbox("Cidade", cidades)
 
         # Campo para adicionar nova cidade se a opção for selecionada
-        if cidade == "Adicionar nova cidade":
+        if cidade == "ADICIONAR NOVA CIDADE":
             cidade = st.text_input("Digite o nome da nova cidade:", "")
 
         cliente = st.text_input("Cliente")

@@ -15,15 +15,15 @@ def create_calendar(year, month, dados):
 
     # Dicionário de cores para as cidades
     city_colors = {
-        "Abaiara": "lightgreen",
-        "Barro": "lightblue",
-        "Brejo Santo": "lightcoral",
-        "Mauriti": "salmon",
-        "Milagres": "lightyellow",
-        "Missão Velha": "lightpink",
-        "Penaforte": "lightgray",
-        "Porteitas": "lightgoldenrodyellow",
-        "Jati": "lightcyan"
+        "Abaiara": "green",
+        "Barro": "blue",
+        "Brejo Santo": "coral",
+        "Mauriti": "purple",
+        "Milagres": "yellow",
+        "Missão Velha": "pink",
+        "Penaforte": "gray",
+        "Porteitas": "orange",
+        "Jati": "cyan"
     }
 
     # Criar a tabela do calendário

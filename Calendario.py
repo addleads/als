@@ -65,6 +65,19 @@ def main():
         if cidade == "ADICIONAR NOVA CIDADE":
             cidade = st.text_input("Digite o nome da nova cidade:", "")
 
+
+
+        # Lista de cidades com uma opção para adicionar nova cidade
+        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
+        
+        cidade = st.selectbox("Cidade", cidades)
+
+        # Campo para adicionar nova cidade se a opção for selecionada
+        if cidade == "ADICIONAR NOVA CIDADE":
+            cidade = st.text_input("Digite o nome da nova cidade:", "")
+    
+        
+
         cliente = st.text_input("Cliente")
         servico = st.text_input("Serviço")
 

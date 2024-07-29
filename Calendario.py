@@ -19,7 +19,7 @@ def create_calendar(year, month, dados):
 
     for week in cal:
         table += "<tr>"
-        for day in week:
+        for day in week[1:]:  # Ignora o primeiro elemento (domingo)
             if day == 0:
                 table += "<td style='height: 35mm; padding: 5px; text-align: center;'></td>"  # Célula vazia
             else:

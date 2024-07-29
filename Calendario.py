@@ -21,13 +21,13 @@ def create_calendar(year, month, dados):
         table += "<tr>"
         for day in week[1:]:  # Ignora o primeiro elemento (domingo)
             if day == 0:
-                table += "<td style='height: 35mm; padding: 5px; text-align: center;'></td>"  # Célula vazia
+                table += "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center;'></td>"  # Célula vazia
             else:
                 # Verificar se há informações para o dia atual
                 info_dia = next((item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year), None)
                 if info_dia:
                     table += (
-                        "<td style='height: 35mm; padding: 5px; text-align: center; vertical-align: top;'>"
+                        "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
                         f"<div style='margin: 0; font-weight: bold; text-align: center;'>{day}</div>"
                         f"<div style='text-align: center;'>{unidecode(info_dia['cidade'])}</div>"
                         f"<div style='text-align: center;'>{unidecode(info_dia['cliente'])}</div>"
@@ -36,7 +36,7 @@ def create_calendar(year, month, dados):
                     )
                 else:
                     table += (
-                        "<td style='height: 35mm; padding: 5px; text-align: center; vertical-align: top;'>"
+                        "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
                         f"<div style='margin: 0;'>{day}</div>"
                         "</td>"
                     )

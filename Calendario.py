@@ -13,17 +13,17 @@ def create_calendar(year, month, dados):
     st.write("<h4 style='text-align: center;'>Agenda - {} de {}</h4>".format(month_names[month-1], year), unsafe_allow_html=True)
     days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
 
-    # Dicionário de cores para as cidades
+    # Dicionário de cores escuras para as cidades
     city_colors = {
-        "Abaiara": "green",
-        "Barro": "blue",
-        "Brejo Santo": "coral",
-        "Mauriti": "purple",
-        "Milagres": "yellow",
-        "Missão Velha": "pink",
-        "Penaforte": "gray",
-        "Porteitas": "orange",
-        "Jati": "cyan"
+        "Abaiara": "#4CAF50",  # Verde escuro
+        "Barro": "#2196F3",    # Azul escuro
+        "Brejo Santo": "#F44336",  # Vermelho escuro
+        "Mauriti": "#FF5722",  # Laranja escuro
+        "Milagres": "#FFC107",  # Amarelo escuro
+        "Missão Velha": "#9C27B0",  # Roxo escuro
+        "Penaforte": "#607D8B",  # Cinza escuro
+        "Porteitas": "#3F51B5",  # Azul marinho
+        "Jati": "#795548"        # Marrom escuro
     }
 
     # Criar a tabela do calendário
@@ -47,7 +47,7 @@ def create_calendar(year, month, dados):
                         servico = unidecode(entry['servico'])
                         color = city_colors.get(cidade, "white")  # Cor padrão se a cidade não estiver no dicionário
                         cell_content += (
-                            f"<div style='text-align: center; background-color: {color};'>{cidade} - {cliente}</div>"
+                            f"<div style='text-align: center; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
                             f"<div style='text-align: center;'>{servico}</div>"
                         )
                     table += (

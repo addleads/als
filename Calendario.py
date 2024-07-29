@@ -29,8 +29,7 @@ def create_calendar(year, month, dados):
                     table += (
                         "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
                         f"<div style='margin: 0; font-weight: bold; text-align: center;'>{day}</div>"
-                        f"<div style='text-align: center;'>{unidecode(info_dia['cidade'])}</div>"
-                        f"<div style='text-align: center;'>{unidecode(info_dia['cliente'])}</div>"
+                        f"<div style='text-align: center;'>{unidecode(info_dia['cidade'])} - {unidecode(info_dia['cliente'])}</div>"
                         f"<div style='text-align: center;'>{unidecode(info_dia['servico'])}</div>"
                         "</td>"
                     )
@@ -38,6 +37,7 @@ def create_calendar(year, month, dados):
                     table += (
                         "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
                         f"<div style='margin: 0;'>{day}</div>"
+                        "<div style='text-align: center;'></div>"
                         "</td>"
                     )
         table += "</tr>"
@@ -59,7 +59,7 @@ def main():
         # Campo para o cliente
         cliente = st.text_input("Cliente")
         
-        # Primeira lista de cidades com uma opção para adicionar nova cidade
+        # Lista de cidades com uma opção para adicionar nova cidade
         cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         
         cidade = st.selectbox("Cidade", cidades)
@@ -67,13 +67,6 @@ def main():
         # Campo para adicionar nova cidade se a opção for selecionada
         if cidade == "ADICIONAR NOVA CIDADE":
             cidade = st.text_input("Digite o nome da nova cidade:", "")
-
-        # Segunda lista de cidades com uma opção para adicionar nova cidade
-        cidade2 = st.selectbox("Cidade (opcional)", cidades)
-
-        # Campo para adicionar nova cidade se a opção for selecionada
-        if cidade2 == "ADICIONAR NOVA CIDADE":
-            cidade2 = st.text_input("Digite o nome da nova cidade:", "")
 
         servico = st.text_input("Serviço")
 
@@ -83,12 +76,11 @@ def main():
                 "mes": month,
                 "ano": year,
                 "cidade": cidade,
-                "cidade2": cidade2,  # Adiciona a segunda cidade ao novo item
                 "cliente": cliente,
                 "servico": servico
             }
             # Verificar se a mesma informação já existe na agenda
-            existing_item = next((item for item in dados if item['dia'] == new_item['dia'] and item['mes'] == new_item['mes'] and item['ano'] == new_item['ano'] and item['cidade'] == cidade and item['cidade2'] == cidade2 and item['cliente'] == cliente and item['servico'] == servico), None)
+            existing_item = next((item for item in dados if item['dia'] == new_item['dia'] and item['mes'] == new_item['mes'] and item['ano'] == new_item['ano'] and item['cidade'] == cidade and item['cliente'] == cliente and item['servico'] == servico), None)
             if existing_item:
                 st.error("Esta informação já existe na agenda.")
             else:

@@ -26,14 +26,18 @@ def create_calendar(year, month, dados):
                 # Verificar se há informações para o dia atual
                 info_dia = [item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year]
                 if info_dia:
+                    # Adicionar as informações em linhas separadas
+                    cell_content = f"<div style='margin: 0; font-weight: bold; text-align: center;'>{day}</div>"
                     for entry in info_dia:
-                        table += (
-                            "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
-                            f"<div style='margin: 0; font-weight: bold; text-align: center;'>{day}</div>"
+                        cell_content += (
                             f"<div style='text-align: center;'>{unidecode(entry['cidade'])} - {unidecode(entry['cliente'])}</div>"
                             f"<div style='text-align: center;'>{unidecode(entry['servico'])}</div>"
-                            "</td>"
                         )
+                    table += (
+                        f"<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
+                        f"{cell_content}"
+                        "</td>"
+                    )
                 else:
                     table += (
                         "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"

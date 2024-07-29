@@ -57,7 +57,7 @@ def main():
             dados = json.load(file)
 
         # Lista de cidades com uma opção para adicionar nova cidade
-        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "Adicionar nova cidade"]
+        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         
         cidade = st.selectbox("Cidade", cidades)
 

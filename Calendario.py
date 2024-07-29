@@ -82,9 +82,6 @@ def main():
         except FileNotFoundError:
             dados = []  # Inicializa dados como uma lista vazia se o arquivo não existir
 
-        # Campo para o cliente
-        cliente = st.text_input("Cliente")
-        
         # Lista de cidades com uma opção para adicionar nova cidade
         cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         
@@ -94,6 +91,9 @@ def main():
         if cidade == "ADICIONAR NOVA CIDADE":
             cidade = st.text_input("Digite o nome da nova cidade:", "")
 
+        # Campo para o cliente agora abaixo do campo da cidade
+        cliente = st.text_input("Cliente")
+        
         servico = st.text_input("Serviço")
 
         if st.button("Adicionar"):

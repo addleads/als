@@ -72,6 +72,7 @@ def main():
     year = today.year
     month = today.month
     
+    # Carrega dados do arquivo JSON
     try:
         with open('agenda.json', 'r', encoding='utf-8') as file:
             dados = json.load(file)

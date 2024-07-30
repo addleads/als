@@ -143,6 +143,10 @@ def main():
         selected_date = st.date_input("Adicionar agenda", value=today)
         year, month = selected_date.year, selected_date.month
         
+        # Formatação da data no formato brasileiro
+        formatted_date = selected_date.strftime("%d/%m/%Y")
+        st.write(f"Data selecionada: {formatted_date}")
+
         cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         cidade = st.selectbox("Cidade", cidades)
         

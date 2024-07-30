@@ -33,9 +33,9 @@ def create_calendar(year, month, dados):
     
     for week in cal:
         table += "<tr>"
-        for day in week:  # Inclui todos os dias, incluindo domingo
+        for day in week:
             if day == 0:
-                table += "<td style='height: 60px; width: 60px; padding: 5px; text-align: center;'></td>"
+                table += "<td style='height: 30px; width: 30px; padding: 5px; text-align: center;'></td>"  # Altura e largura definidas em 3 cm (30 pixels)
             else:
                 info_dia = [item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year]
                 if info_dia:
@@ -50,13 +50,13 @@ def create_calendar(year, month, dados):
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
                         )
                     table += (
-                        f"<td style='height: 60px; width: 60px; padding: 5px; text-align: left; vertical-align: top;'>"
+                        f"<td style='height: 30px; width: 30px; padding: 5px; text-align: left; vertical-align: top;'>"
                         f"{cell_content}"
                         "</td>"
                     )
                 else:
                     table += (
-                        "<td style='height: 60px; width: 60px; padding: 5px; text-align: left; vertical-align: top;'>"
+                        "<td style='height: 30px; width: 30px; padding: 5px; text-align: left; vertical-align: top;'>"
                         f"<div style='margin: 0;'>{day}</div>"
                         "<div style='text-align: center;'></div>"
                         "</td>"

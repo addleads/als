@@ -3,6 +3,7 @@ import calendar  # Importa a biblioteca calendar para manipular calendários
 from datetime import date  # Importa a classe date para trabalhar com datas
 import json  # Importa a biblioteca json para manipulação de arquivos JSON
 from unidecode import unidecode  # Importa a função unidecode para remover acentos de strings
+import time  # Importa a biblioteca time para trabalhar com tempo
 
 def create_calendar(year, month, dados):
     """Função para criar e exibir um calendário para um mês específico."""
@@ -35,7 +36,7 @@ def create_calendar(year, month, dados):
         table += "<tr>"
         for day in week:
             if day == 0:
-                table += "<td style='height: 3cm; width: 3cm; padding: 5px; text-align: center;'></td>"  # Altura e largura definidas em 3 cm
+                table += "<td style='height: 3cm; width: 3cm; padding: 5px; text-align: center;'></td>"
             else:
                 info_dia = [item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year]
                 if info_dia:
@@ -142,17 +143,10 @@ def main():
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
-    create_calendar(year, month, dados)
-
-    if month == 12:
-        next_month = 1
-        next_year = year + 1
-    else:
-        next_month = month + 1
-        next_year = year
-
-    st.markdown("<hr>", unsafe_allow_html=True)
-    create_calendar(next_year, next_month, dados)
+    while True:
+        create_calendar(year, month, dados)
+        st.experimental_rerun()
+        time.sleep(1)  # Aguarda 1 segundo antes de atualizar novamente
 
 if __name__ == "__main__":
     main()

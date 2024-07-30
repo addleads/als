@@ -5,6 +5,19 @@ import json  # Importa a biblioteca json para manipulação de arquivos JSON
 from unidecode import unidecode  # Importa a função unidecode para remover acentos de strings
 import time  # Importa a biblioteca time para trabalhar com tempo
 
+city_colors = {
+    "Abaiara": "#690202",  
+    "Barro": "#692402",    
+    "Brejo Santo": "#694a02",  
+    "Mauriti": "#696702",  
+    "Milagres": "#406902",  
+    "Missão Velha": "#026913",  
+    "Penaforte": "#025b69",  
+    "Porteitas": "#021f69",  
+    "Jati": "#400269",       
+    "ADICIONAR NOVA CIDADE": "#4B4B4B"  
+}
+
 def create_calendar(year, month, dados):
     """Função para criar e exibir um calendário para um mês específico, sem a coluna de domingo."""
     cal = calendar.monthcalendar(year, month)
@@ -15,19 +28,6 @@ def create_calendar(year, month, dados):
     
     st.write("<h4 style='text-align: center;'>Agenda - {} de {}</h4>".format(month_names[month-1], year), unsafe_allow_html=True)
     days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
-    
-    city_colors = {
-        "Abaiara": "#690202",  
-        "Barro": "#692402",    
-        "Brejo Santo": "#694a02",  
-        "Mauriti": "#696702",  
-        "Milagres": "#406902",  
-        "Missão Velha": "#026913",  
-        "Penaforte": "#025b69",  
-        "Porteitas": "#021f69",  
-        "Jati": "#400269",       
-        "ADICIONAR NOVA CIDADE": "#4B4B4B"  
-    }
     
     table = "<table style='width:100%; border-collapse: collapse;'>"
     table += "<tr>" + "".join(f"<th style='padding: 5px; text-align: center;'>{day}</th>" for day in days_of_week) + "</tr>"

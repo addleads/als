@@ -173,5 +173,17 @@ def main():
     # Exibe o calendário do mês atual
     create_calendar(year, month, dados)
 
+    # Calcula o próximo mês e ano
+    if month == 12:
+        next_month = 1
+        next_year = year + 1
+    else:
+        next_month = month + 1
+        next_year = year
+
+    # Exibe o calendário do próximo mês
+    st.markdown("<hr>", unsafe_allow_html=True)  # Adiciona uma linha horizontal para separação
+    create_calendar(next_year, next_month, dados)  # Chama a função para o próximo mês
+
 if __name__ == "__main__":
     main()  # Executa a função principal ao rodar o script

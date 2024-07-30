@@ -76,17 +76,20 @@ def main():
     year = today.year
     month = today.month
 
+    # Carregar dados do arquivo JSON
+    try:
+        with open('agenda.json', 'r', encoding='utf-8') as file:
+            dados = json.load(file)
+    except FileNotFoundError:
+        dados = []  # Inicializa dados como uma lista vazia se o arquivo não existir
+
     with st.sidebar:
         selected_date = st.date_input("Adicionar agenda", value=today)
         year, month = selected_date.year, selected_date.month
 
-        # Carregar dados do arquivo JSON
-        try:
-            with open('agenda.json', 'r', encoding='utf-8') as file:
-                dados = json.load(file)
-        except FileNotFoundError:
-            dados = []  # Inicializa dados como uma lista vazia se o arquivo não existir
-
+        # Campo para o cliente
+        cliente = st.text_input("Cliente")
+        
         # Lista de cidades com uma opção para adicionar nova cidade
         cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         
@@ -96,9 +99,6 @@ def main():
         if cidade == "ADICIONAR NOVA CIDADE":
             cidade = st.text_input("Digite o nome da nova cidade:", "")
 
-        # Campo para o cliente agora abaixo do campo da cidade
-        cliente = st.text_input("Cliente")
-        
         servico = st.text_input("Serviço")
 
         if st.button("Adicionar"):

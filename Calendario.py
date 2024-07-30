@@ -13,7 +13,7 @@ def create_calendar(year, month, dados):
     ]
     
     st.write("<h4 style='text-align: center;'>Agenda - {} de {}</h4>".format(month_names[month-1], year), unsafe_allow_html=True)
-    days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+    days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado", "Domingo"]
     
     city_colors = {
         "Abaiara": "#690202",  
@@ -33,7 +33,7 @@ def create_calendar(year, month, dados):
     
     for week in cal:
         table += "<tr>"
-        for day in week[1:]:
+        for day in week:  # Inclui todos os dias, incluindo domingo
             if day == 0:
                 table += "<td style='height: 60px; width: 60px; padding: 5px; text-align: center;'></td>"
             else:

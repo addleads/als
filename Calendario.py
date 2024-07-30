@@ -178,13 +178,5 @@ def main():
     st.markdown("<hr>", unsafe_allow_html=True)
     create_calendar(year, month, dados)
 
-    # Calcular o próximo mês
-    next_month = (month % 12) + 1
-    next_year = year if month < 12 else year + 1
-
-    # Exibir o calendário do próximo mês
-    st.markdown("<hr>", unsafe_allow_html=True)
-    create_calendar(next_year, next_month, dados)
-
 if __name__ == "__main__":
     main()

@@ -1,6 +1,6 @@
 import streamlit as st  # Importa a biblioteca Streamlit para criar a interface web
 import calendar  # Importa a biblioteca calendar para manipular calendários
-from datetime import date  # Importa a classe date para trabalhar com datas
+from datetime import date, datetime  # Importa a classe date e datetime para trabalhar com datas
 import json  # Importa a biblioteca json para manipulação de arquivos JSON
 from unidecode import unidecode  # Importa a função unidecode para remover acentos de strings
 import time  # Importa a biblioteca time para trabalhar com tempo
@@ -62,6 +62,42 @@ def create_calendar(year, month, dados):
                         "<div style='text-align: center;'></div>"
                         "</td>"
                     )
+        table += "</tr>"
+    table += "</table>"
+    st.markdown(table, unsafe_allow_html=True)
+
+def create_next_month_calendar(year, month, dados):
+    """Função para criar e exibir o calendário do mês seguinte."""
+    next_month = month + 1
+    next_year = year
+    if next_month > 12:
+        next_month = 1
+        next_year += 1
+    
+    cal = calendar.monthcalendar(next_year, next_month)
+    month_names = [
+        "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+        "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+    ]
+    
+    st.write("<h4 style='text-align: center;'>Agenda - {} de {}</h4>".format(month_names[next_month-1], next_year), unsafe_allow_html=True)
+    days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+    
+    table = "<table style='width:100%; border-collapse: collapse;'>"
+    table += "<tr>" + "".join(f"<th style='padding: 5px; text-align: center;'>{day}</th>" for day in days_of_week) + "</tr>"
+    
+    for week in cal:
+        table += "<tr>"
+        for day in week[0:6]:  # Itera sobre os primeiros 6 dias da semana (segunda a sábado)
+            if day == 0:
+                table += "<td style='height: 3cm; width: 3cm; padding: 5px; text-align: center;'></td>"
+            else:
+                table += (
+                    "<td style='height: 3cm; width: 3cm; padding: 5px; text-align: left; vertical-align: top;'>"
+                    f"<div style='margin: 0;'>{day}</div>"
+                    "<div style='text-align: center;'></div>"
+                    "</td>"
+                )
         table += "</tr>"
     table += "</table>"
     st.markdown(table, unsafe_allow_html=True)
@@ -150,14 +186,21 @@ def main():
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
-    # Cria um espaço reservado para o calendário
-    calendar_placeholder = st.empty()
+    # Cria um espaço reservado para o calendário atual
+    current_calendar_placeholder = st.empty()
 
-    # Atualiza o calendário a cada 2 segundos
+    # Cria um espaço reservado para o calendário do próximo mês
+    next_calendar_placeholder = st.empty()
+
+    # Atualiza os calendários a cada 2 segundos
     while True:
-        with calendar_placeholder.container():
+        with current_calendar_placeholder.container():
             st.session_state.dados = load_data()  # Recarrega os dados do arquivo JSON
-            create_calendar(year, month, st.session_state.dados)  # Atualiza o calendário
+            create_calendar(year, month, st.session_state.dados)  # Atualiza o calendário atual
+        
+        with next_calendar_placeholder.container():
+            create_next_month_calendar(year, month, st.session_state.dados)  # Atualiza o calendário do próximo mês
+        
         time.sleep(2)  # Aguarda 2 segundos antes de atualizar novamente
 
 if __name__ == "__main__":

@@ -110,6 +110,7 @@ def main():
             with open('agenda.json', 'w', encoding='utf-8') as file:
                 json.dump(st.session_state.dados, file, ensure_ascii=False, indent=4)
             st.success("Item adicionado com sucesso!")
+            st.experimental_rerun()  # Recarrega a página após adicionar
 
         st.subheader("Editar Informações")
         edit_date = st.date_input("Selecionar data para editar", value=date.today())
@@ -134,6 +135,7 @@ def main():
                     with open('agenda.json', 'w', encoding='utf-8') as file:
                         json.dump(st.session_state.dados, file, ensure_ascii=False, indent=4)
                     st.success("Alterações salvas com sucesso!")
+                    st.experimental_rerun()  # Recarrega a página após editar
 
         st.subheader("Excluir Informações")
         delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
@@ -144,6 +146,7 @@ def main():
                     with open('agenda.json', 'w', encoding='utf-8') as file:
                         json.dump(st.session_state.dados, file, ensure_ascii=False, indent=4)
                     st.success("Item excluído com sucesso!")
+                    st.experimental_rerun()  # Recarrega a página após excluir
                     break
             else:
                 st.error("Nenhum item encontrado com a data informada.")

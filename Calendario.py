@@ -8,10 +8,10 @@ import time  # Importa a biblioteca time para trabalhar com tempo
 city_colors = {
     "Abaiara": "#690202",  
     "Barro": "#692402",    
-    "Brejo Santo": "#694a02",  
+    "B.Santo": "#694a02",  
     "Mauriti": "#696702",  
     "Milagres": "#406902",  
-    "Missão Velha": "#026913",  
+    "M.Velha": "#026913",  
     "Penaforte": "#025b69",  
     "Porteitas": "#021f69",  
     "Jati": "#400269",       
@@ -45,7 +45,7 @@ def create_calendar(year, month, dados):
                         cidade = unidecode(entry['cidade'])
                         cliente = unidecode(entry['cliente'])
                         servico = unidecode(entry['servico'])
-                        color = city_colors.get(cidade, "#000000")
+                        color = city_colors.get(cidade, "#4B4B4B)
                         cell_content += (
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
@@ -99,7 +99,7 @@ def create_next_month_calendar(year, month, dados):
                         cidade = unidecode(entry['cidade'])
                         cliente = unidecode(entry['cliente'])
                         servico = unidecode(entry['servico'])
-                        color = city_colors.get(cidade, "#000000")
+                        color = city_colors.get(cidade, "#4B4B4B")
                         cell_content += (
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
@@ -143,7 +143,7 @@ def main():
         selected_date = st.date_input("Adicionar agenda", value=today)
         year, month = selected_date.year, selected_date.month
         
-        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
+        cidades = ['Abaiara', 'Barro', 'B.Santo', 'Mauriti', 'Milagres', 'M.Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         cidade = st.selectbox("Cidade", cidades)
         
         if cidade == "ADICIONAR NOVA CIDADE":

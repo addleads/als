@@ -3,6 +3,7 @@ import calendar  # Importa a biblioteca calendar para manipular calendários
 from datetime import date  # Importa a classe date para trabalhar com datas
 import json  # Importa a biblioteca json para manipulação de arquivos JSON
 from unidecode import unidecode  # Importa a função unidecode para remover acentos de strings
+import time  # Importa a biblioteca time para trabalhar com tempo
 
 def create_calendar(year, month, dados):
     """Função para criar e exibir um calendário para um mês específico."""
@@ -110,7 +111,6 @@ def main():
             with open('agenda.json', 'w', encoding='utf-8') as file:
                 json.dump(st.session_state.dados, file, ensure_ascii=False, indent=4)
             st.success("Item adicionado com sucesso!")
-            st.experimental_rerun()  # Recarrega a página após adicionar
 
         st.subheader("Editar Informações")
         edit_date = st.date_input("Selecionar data para editar", value=date.today())
@@ -135,7 +135,6 @@ def main():
                     with open('agenda.json', 'w', encoding='utf-8') as file:
                         json.dump(st.session_state.dados, file, ensure_ascii=False, indent=4)
                     st.success("Alterações salvas com sucesso!")
-                    st.experimental_rerun()  # Recarrega a página após editar
 
         st.subheader("Excluir Informações")
         delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
@@ -146,13 +145,18 @@ def main():
                     with open('agenda.json', 'w', encoding='utf-8') as file:
                         json.dump(st.session_state.dados, file, ensure_ascii=False, indent=4)
                     st.success("Item excluído com sucesso!")
-                    st.experimental_rerun()  # Recarrega a página após excluir
                     break
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
     # Exibe o calendário atualizado
     create_calendar(year, month, st.session_state.dados)
+
+    # Adiciona um espaço reservado para recarregar a página a cada 2 segundos
+    with st.empty():
+        while True:
+            time.sleep(2)  # Aguarda 2 segundos
+            st.experimental_rerun()  # Recarrega a página
 
 if __name__ == "__main__":
     main()

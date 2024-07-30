@@ -45,7 +45,7 @@ def create_calendar(year, month, dados):
         for day in week[1:]:  # Ignora o primeiro elemento (domingo)
             if day == 0:
                 # Célula vazia para dias que não pertencem ao mês
-                table += "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center;'></td>"
+                table += "<td style='height: 60px; width: 60px; padding: 5px; text-align: center;'></td>"  # Altura e largura padronizadas
             else:
                 # Verifica se há informações para o dia atual
                 info_dia = [item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year]
@@ -62,14 +62,14 @@ def create_calendar(year, month, dados):
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
                         )
                     table += (
-                        f"<td style='height: 100px; width: 100px; padding: 5px; text-align: left; vertical-align: top;'>"
+                        f"<td style='height: 60px; width: 60px; padding: 5px; text-align: left; vertical-align: top;'>"
                         f"{cell_content}"
                         "</td>"
                     )
                 else:
                     # Célula para dias sem informações
                     table += (
-                        "<td style='height: 100px; width: 100px; padding: 5px; text-align: left; vertical-align: top;'>"
+                        "<td style='height: 60px; width: 60px; padding: 5px; text-align: left; vertical-align: top;'>"
                         f"<div style='margin: 0;'>{day}</div>"
                         "<div style='text-align: center;'></div>"
                         "</td>"

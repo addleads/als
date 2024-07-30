@@ -159,10 +159,7 @@ def main():
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
-    # Exibir o calendário do mês atual
-    create_calendar(year, month, dados)
-
-    # Calcular o mês anterior
+    # Exibir o calendário do mês anterior
     if month == 1:
         prev_month = 12
         prev_year = year - 1
@@ -170,9 +167,11 @@ def main():
         prev_month = month - 1
         prev_year = year
 
-    # Exibir o calendário do mês anterior
-    st.markdown("<hr>", unsafe_allow_html=True)
     create_calendar(prev_year, prev_month, dados)
+
+    # Exibir o calendário do mês atual
+    st.markdown("<hr>", unsafe_allow_html=True)
+    create_calendar(year, month, dados)
 
     # Calcular o próximo mês
     next_month = (month % 12) + 1

@@ -41,24 +41,24 @@ def create_calendar(year, month, dados):
                 info_dia = [item for item in dados if item['dia'] == day and item['mes'] == month and item['ano'] == year]
                 if info_dia:
                     # Adicionar as informações em linhas separadas
-                    cell_content = f"<div style='margin: 0; font-weight: bold; text-align: center;'>{day}</div>"
+                    cell_content = f"<div style='margin: 0; font-weight: bold; text-align: left;'>{day}</div>"
                     for entry in info_dia:
                         cidade = unidecode(entry['cidade'])
                         cliente = unidecode(entry['cliente'])
                         servico = unidecode(entry['servico'])
                         color = city_colors.get(cidade, "#000000")  # Cor padrão se a cidade não estiver no dicionário
                         cell_content += (
-                            f"<div style='text-align: center; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
-                            f"<div style='text-align: center; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
+                            f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
+                            f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
                         )
                     table += (
-                        f"<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
+                        f"<td style='height: 100px; width: 100px; padding: 5px; text-align: left; vertical-align: top;'>"
                         f"{cell_content}"
                         "</td>"
                     )
                 else:
                     table += (
-                        "<td style='height: 35mm; width: 100px; padding: 5px; text-align: center; vertical-align: top;'>"
+                        "<td style='height: 100px; width: 100px; padding: 5px; text-align: left; vertical-align: top;'>"
                         f"<div style='margin: 0;'>{day}</div>"
                         "<div style='text-align: center;'></div>"
                         "</td>"
@@ -82,6 +82,9 @@ def main():
         except FileNotFoundError:
             dados = []  # Inicializa dados como uma lista vazia se o arquivo não existir
 
+        # Campo para o cliente
+        cliente = st.text_input("Cliente")
+        
         # Lista de cidades com uma opção para adicionar nova cidade
         cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         
@@ -91,9 +94,6 @@ def main():
         if cidade == "ADICIONAR NOVA CIDADE":
             cidade = st.text_input("Digite o nome da nova cidade:", "")
 
-        # Campo para o cliente agora abaixo do campo da cidade
-        cliente = st.text_input("Cliente")
-        
         servico = st.text_input("Serviço")
 
         if st.button("Adicionar"):

@@ -1,6 +1,6 @@
 import streamlit as st
 import calendar
-from datetime import date, timedelta
+from datetime import date
 import json
 from unidecode import unidecode
 
@@ -162,7 +162,19 @@ def main():
     # Exibir o calendário do mês atual
     create_calendar(year, month, dados)
 
-    # Calcular o próximo mês e ano
+    # Calcular o mês anterior
+    if month == 1:
+        prev_month = 12
+        prev_year = year - 1
+    else:
+        prev_month = month - 1
+        prev_year = year
+
+    # Exibir o calendário do mês anterior
+    st.markdown("<hr>", unsafe_allow_html=True)
+    create_calendar(prev_year, prev_month, dados)
+
+    # Calcular o próximo mês
     next_month = (month % 12) + 1
     next_year = year if month < 12 else year + 1
 

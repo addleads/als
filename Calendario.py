@@ -147,6 +147,17 @@ def main():
         formatted_date = selected_date.strftime("%d/%m/%Y")
         st.write(f"Data selecionada: {formatted_date}")
 
+        # Nomes dos dias da semana em português
+        days_of_week = ["Segunda", "Terça", "Quarta", "Quinta", "Sexta", "Sábado"]
+        st.write("Dia da semana:", days_of_week[selected_date.weekday()])
+
+        # Nomes dos meses em português
+        month_names = [
+            "Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+            "Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"
+        ]
+        st.write("Mês:", month_names[month-1])
+
         cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         cidade = st.selectbox("Cidade", cidades)
         

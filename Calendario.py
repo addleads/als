@@ -24,10 +24,10 @@ def create_calendar(year, month, dados):
     city_colors = {
         "Abaiara": "#690202",  
         "Barro": "#692402",    
-        "Brejo Santo": "#694a02",  
+        "B.Santo": "#694a02",  
         "Mauriti": "#696702",  
         "Milagres": "#406902",  
-        "Missão Velha": "#026913",  
+        "M.Velha": "#026913",  
         "Penaforte": "#025b69",  
         "Porteitas": "#021f69",  
         "Jati": "#400269",       
@@ -56,7 +56,7 @@ def create_calendar(year, month, dados):
                         cidade = unidecode(entry['cidade'])  # Remove acentos da cidade
                         cliente = unidecode(entry['cliente'])  # Remove acentos do cliente
                         servico = unidecode(entry['servico'])  # Remove acentos do serviço
-                        color = city_colors.get(cidade, "#000000")  # Cor padrão se a cidade não estiver no dicionário
+                        color = city_colors.get(cidade, "#4B4B4B")  # Cor padrão se a cidade não estiver no dicionário
                         cell_content += (
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
@@ -100,7 +100,7 @@ def main():
         year, month = selected_date.year, selected_date.month
         
         # Lista de cidades com uma opção para adicionar nova cidade
-        cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
+        cidades = ['Abaiara', 'Barro', 'B.Santo', 'Mauriti', 'Milagres', 'M.Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         cidade = st.selectbox("Cidade", cidades)
         
         # Campo para adicionar nova cidade se a opção for selecionada

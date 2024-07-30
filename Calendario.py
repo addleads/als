@@ -1,6 +1,6 @@
 import streamlit as st
 import calendar
-from datetime import date
+from datetime import date, timedelta
 import json
 from unidecode import unidecode
 
@@ -71,13 +71,8 @@ def create_calendar(year, month, dados):
 def main():
     st.set_page_config(page_title="Calendário", layout="wide")
     
-    # Usar a data atual para definir o mês e o ano
-    today = date.today()
-    year = today.year
-    month = today.month
-
     with st.sidebar:
-        selected_date = st.date_input("Adicionar agenda", value=today)
+        selected_date = st.date_input("Adicionar agenda", value=date.today())
         year, month = selected_date.year, selected_date.month
 
         # Carregar dados do arquivo JSON
@@ -164,21 +159,10 @@ def main():
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
-    # Exibir o calendário do mês anterior
-    if month == 1:
-        prev_month = 12
-        prev_year = year - 1
-    else:
-        prev_month = month - 1
-        prev_year = year
-
-    create_calendar(prev_year, prev_month, dados)
-
     # Exibir o calendário do mês atual
-    st.markdown("<hr>", unsafe_allow_html=True)
     create_calendar(year, month, dados)
 
-    # Calcular o próximo mês
+    # Calcular o próximo mês e ano
     next_month = (month % 12) + 1
     next_year = year if month < 12 else year + 1
 

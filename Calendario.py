@@ -45,7 +45,7 @@ def create_calendar(year, month, dados):
                         cidade = unidecode(entry['cidade'])
                         cliente = unidecode(entry['cliente'])
                         servico = unidecode(entry['servico'])
-                        color = city_colors.get(cidade, "#4B4B4B)
+                        color = city_colors.get(cidade, "#000000")
                         cell_content += (
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
@@ -99,7 +99,7 @@ def create_next_month_calendar(year, month, dados):
                         cidade = unidecode(entry['cidade'])
                         cliente = unidecode(entry['cliente'])
                         servico = unidecode(entry['servico'])
-                        color = city_colors.get(cidade, "#4B4B4B")
+                        color = city_colors.get(cidade, "#000000")
                         cell_content += (
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
                             f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"

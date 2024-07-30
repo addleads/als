@@ -98,14 +98,18 @@ def main():
         # Campo para selecionar uma data para adicionar uma nova agenda
         selected_date = st.date_input("Adicionar agenda", value=today)
         year, month = selected_date.year, selected_date.month
-        # Campo para o cliente
-        cliente = st.text_input("Cliente") 
+        
         # Lista de cidades com uma opção para adicionar nova cidade
         cidades = ['Abaiara', 'Barro', 'Brejo Santo', 'Mauriti', 'Milagres', 'Missão Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
         cidade = st.selectbox("Cidade", cidades)
+        
         # Campo para adicionar nova cidade se a opção for selecionada
         if cidade == "ADICIONAR NOVA CIDADE":
             cidade = st.text_input("Digite o nome da nova cidade:", "")
+        
+        # Campo para o cliente (agora abaixo da cidade)
+        cliente = st.text_input("Cliente") 
+        
         servico = st.text_input("Serviço")
         
         # Botão para adicionar uma nova entrada à agenda

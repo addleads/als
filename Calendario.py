@@ -124,6 +124,7 @@ def main():
                 new_cliente = st.text_input("Cliente", value=entry['cliente'], key=f"cliente_{idx}")
                 new_servico = st.text_input("Serviço", value=entry['servico'], key=f"servico_{idx}")
                 if st.button(f"Salvar Alterações {idx + 1}", key=f"save_{idx}"):
+                    # Atualiza a entrada correspondente
                     st.session_state.dados[st.session_state.dados.index(entry)] = {
                         "dia": entry['dia'],
                         "mes": entry['mes'],

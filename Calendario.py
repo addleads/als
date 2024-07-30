@@ -1,9 +1,9 @@
-import streamlit as st
-import calendar
-from datetime import date
-import json
-from unidecode import unidecode
-import time
+import streamlit as st  # Importa a biblioteca Streamlit para criar a interface web
+import calendar  # Importa a biblioteca calendar para manipular calendários
+from datetime import date  # Importa a classe date para trabalhar com datas
+import json  # Importa a biblioteca json para manipulação de arquivos JSON
+from unidecode import unidecode  # Importa a função unidecode para remover acentos de strings
+import time  # Importa a biblioteca time para trabalhar com tempo
 
 def create_calendar(year, month, dados):
     """Função para criar e exibir um calendário para um mês específico."""
@@ -150,14 +150,15 @@ def main():
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
-    # Exibe o calendário atualizado
-    create_calendar(year, month, st.session_state.dados)
+    # Cria um espaço reservado para o calendário
+    calendar_placeholder = st.empty()
 
-    # Atualiza os dados a cada 2 segundos
+    # Atualiza o calendário a cada 2 segundos
     while True:
-        time.sleep(2)  # Aguarda 2 segundos
-        st.session_state.dados = load_data()  # Recarrega os dados do arquivo JSON
-        create_calendar(year, month, st.session_state.dados)  # Atualiza o calendário
+        with calendar_placeholder.container():
+            st.session_state.dados = load_data()  # Recarrega os dados do arquivo JSON
+            create_calendar(year, month, st.session_state.dados)  # Atualiza o calendário
+        time.sleep(2)  # Aguarda 2 segundos antes de atualizar novamente
 
 if __name__ == "__main__":
     main()

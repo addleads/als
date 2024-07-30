@@ -143,10 +143,14 @@ def main():
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
+    # Cria um espaço reservado para o calendário
+    calendar_placeholder = st.empty()
+
     while True:
-        create_calendar(year, month, dados)
-        st.experimental_rerun()
+        with calendar_placeholder.container():
+            create_calendar(year, month, dados)
         time.sleep(1)  # Aguarda 1 segundo antes de atualizar novamente
+        st.experimental_rerun()  # Atualiza a página
 
 if __name__ == "__main__":
     main()

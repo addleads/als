@@ -156,7 +156,7 @@ def main():
     while True:
         with calendar_placeholder.container():
             create_calendar(year, month, st.session_state.dados)
-        time.sleep(2)  # Aguarda 2 segundos antes de atualizar novamente
+        time.sleep(10)  # Aguarda 2 segundos antes de atualizar novamente
 
 if __name__ == "__main__":
     main()

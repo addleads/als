@@ -1,6 +1,6 @@
 import streamlit as st  # Importa a biblioteca Streamlit para criar a interface web
 import calendar  # Importa a biblioteca calendar para manipular calendários
-from datetime import date, datetime  # Importa a classe date e datetime para trabalhar com datas
+from datetime import date  # Importa a classe date para trabalhar com datas
 import json  # Importa a biblioteca json para manipulação de arquivos JSON
 from unidecode import unidecode  # Importa a função unidecode para remover acentos de strings
 import time  # Importa a biblioteca time para trabalhar com tempo

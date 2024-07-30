@@ -71,8 +71,13 @@ def create_calendar(year, month, dados):
 def main():
     st.set_page_config(page_title="Calendário", layout="wide")
     
+    # Usar a data atual para definir o mês e o ano
+    today = date.today()
+    year = today.year
+    month = today.month
+
     with st.sidebar:
-        selected_date = st.date_input("Adicionar agenda", value=date.today())
+        selected_date = st.date_input("Adicionar agenda", value=today)
         year, month = selected_date.year, selected_date.month
 
         # Carregar dados do arquivo JSON

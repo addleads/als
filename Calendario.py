@@ -71,8 +71,13 @@ def create_calendar(year, month, dados):
 def main():
     st.set_page_config(page_title="Calendário", layout="wide")
     
+    # Usar a data atual para definir o mês e o ano
+    today = date.today()
+    year = today.year
+    month = today.month
+
     with st.sidebar:
-        selected_date = st.date_input("Adicionar agenda", value=date.today())
+        selected_date = st.date_input("Adicionar agenda", value=today)
         year, month = selected_date.year, selected_date.month
 
         # Carregar dados do arquivo JSON
@@ -159,7 +164,16 @@ def main():
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
+    # Exibir o calendário do mês atual
     create_calendar(year, month, dados)
+
+    # Calcular o próximo mês
+    next_month = (month % 12) + 1
+    next_year = year if month < 12 else year + 1
+
+    # Exibir o calendário do próximo mês
+    st.markdown("<hr>", unsafe_allow_html=True)
+    create_calendar(next_year, next_month, dados)
 
 if __name__ == "__main__":
     main()

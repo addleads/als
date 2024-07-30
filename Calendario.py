@@ -61,23 +61,23 @@ def main():
             create_next_month_calendar(year, month, st.session_state.dados)  # Atualiza o calendário do próximo mês
         
         with sidebar_placeholder:
-            selected_option = st.radio("Opções", ["Adicionar", "Editar", "Excluir"])
+            selected_option = st.radio("Opções", ["Adicionar", "Editar", "Excluir"], key="sidebar_radio")
             
             if selected_option == "Adicionar":
                 st.subheader("Adicionar Agenda")
-                selected_date = st.date_input("Data", value=today)
+                selected_date = st.date_input("Data", value=today, key="add_date")
                 year, month = selected_date.year, selected_date.month
                 
                 cidades = ['Abaiara', 'Barro', 'B.Santo', 'Mauriti', 'Milagres', 'M.Velha', 'Penaforte', 'Porteitas', 'Jati', "ADICIONAR NOVA CIDADE"]
-                cidade = st.selectbox("Cidade", cidades)
+                cidade = st.selectbox("Cidade", cidades, key="add_city")
                 
                 if cidade == "ADICIONAR NOVA CIDADE":
-                    cidade = st.text_input("Digite o nome da nova cidade:", "")
+                    cidade = st.text_input("Digite o nome da nova cidade:", "", key="add_new_city")
                 
-                cliente = st.text_input("Cliente") 
-                servico = st.text_input("Serviço")
+                cliente = st.text_input("Cliente", key="add_client") 
+                servico = st.text_input("Serviço", key="add_service")
                 
-                if st.button("Adicionar"):
+                if st.button("Adicionar", key="add_button"):
                     new_item = {
                         "dia": selected_date.day,
                         "mes": month,
@@ -93,17 +93,17 @@ def main():
             
             elif selected_option == "Editar":
                 st.subheader("Editar Informações")
-                edit_date = st.date_input("Selecionar data para editar", value=date.today())
+                edit_date = st.date_input("Selecionar data para editar", value=date.today(), key="edit_date")
                 edit_year, edit_month = edit_date.year, edit_date.month
                 edit_info = [item for item in st.session_state.dados if item['dia'] == edit_date.day and item['mes'] == edit_month and item['ano'] == edit_year]
                 if edit_info:
                     st.write(f"Inserções para {edit_date}:")
                     for idx, entry in enumerate(edit_info):
                         st.write(f"Entrada {idx + 1}:")
-                        new_cidade = st.text_input("Cidade", value=entry['cidade'], key=f"cidade_{idx}")
-                        new_cliente = st.text_input("Cliente", value=entry['cliente'], key=f"cliente_{idx}")
-                        new_servico = st.text_input("Serviço", value=entry['servico'], key=f"servico_{idx}")
-                        if st.button(f"Salvar Alterações {idx + 1}", key=f"save_{idx}"):
+                        new_cidade = st.text_input("Cidade", value=entry['cidade'], key=f"edit_city_{idx}")
+                        new_cliente = st.text_input("Cliente", value=entry['cliente'], key=f"edit_client_{idx}")
+                        new_servico = st.text_input("Serviço", value=entry['servico'], key=f"edit_service_{idx}")
+                        if st.button(f"Salvar Alterações {idx + 1}", key=f"edit_save_{idx}"):
                             st.session_state.dados[st.session_state.dados.index(entry)] = {
                                 "dia": entry['dia'],
                                 "mes": entry['mes'],
@@ -119,7 +119,7 @@ def main():
             else:
                 st.subheader("Excluir Informações")
                 delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
-                if st.button("Excluir"):
+                if st.button("Excluir", key="delete_button"):
                     for item in st.session_state.dados:
                         if item['dia'] == delete_date.day and item['mes'] == delete_date.month and item['ano'] == delete_date.year:
                             st.session_state.dados.remove(item)

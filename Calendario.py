@@ -1,9 +1,9 @@
-import streamlit as st  # Importa a biblioteca Streamlit para criar a interface web
-import calendar  # Importa a biblioteca calendar para manipular calendários
-from datetime import date  # Importa a classe date para trabalhar com datas
-import json  # Importa a biblioteca json para manipulação de arquivos JSON
-from unidecode import unidecode  # Importa a função unidecode para remover acentos de strings
-import time  # Importa a biblioteca time para trabalhar com tempo
+import streamlit as st
+import calendar
+from datetime import date
+import json
+from unidecode import unidecode
+import time
 
 def create_calendar(year, month, dados):
     """Função para criar e exibir um calendário para um mês específico."""
@@ -66,23 +66,24 @@ def create_calendar(year, month, dados):
     table += "</table>"
     st.markdown(table, unsafe_allow_html=True)
 
+def load_data():
+    """Carrega dados do arquivo JSON."""
+    try:
+        with open('agenda.json', 'r', encoding='utf-8') as file:
+            return json.load(file)
+    except FileNotFoundError:
+        return []
+
 def main():
     """Função principal que configura a interface e gerencia a lógica do aplicativo."""
     st.set_page_config(page_title="Calendário", layout="wide")   
     today = date.today()
     year = today.year
     month = today.month
-    
-    # Carrega dados do arquivo JSON
-    try:
-        with open('agenda.json', 'r', encoding='utf-8') as file:
-            dados = json.load(file)
-    except FileNotFoundError:
-        dados = []
 
     # Armazena os dados no estado da sessão
     if 'dados' not in st.session_state:
-        st.session_state.dados = dados
+        st.session_state.dados = load_data()
 
     with st.sidebar:
         selected_date = st.date_input("Adicionar agenda", value=today)
@@ -149,14 +150,14 @@ def main():
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
-    # Cria um espaço reservado para o calendário
-    calendar_placeholder = st.empty()
+    # Exibe o calendário atualizado
+    create_calendar(year, month, st.session_state.dados)
 
-    # Atualiza o calendário a cada 2 segundos
+    # Atualiza os dados a cada 2 segundos
     while True:
-        with calendar_placeholder.container():
-            create_calendar(year, month, st.session_state.dados)
-        time.sleep(10)  # Aguarda 2 segundos antes de atualizar novamente
+        time.sleep(2)  # Aguarda 2 segundos
+        st.session_state.dados = load_data()  # Recarrega os dados do arquivo JSON
+        create_calendar(year, month, st.session_state.dados)  # Atualiza o calendário
 
 if __name__ == "__main__":
     main()

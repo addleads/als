@@ -174,9 +174,7 @@ def main():
 
     create_calendar(prev_year, prev_month, dados)
 
-    # Exibir o calendário do mês atual
-    st.markdown("<hr>", unsafe_allow_html=True)
-    create_calendar(year, month, dados)
+   
 
 if __name__ == "__main__":
     main()

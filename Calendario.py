@@ -79,10 +79,6 @@ def main():
     except FileNotFoundError:
         dados = []
 
-    # Armazena os dados no estado da sessão
-    if 'dados' not in st.session_state:
-        st.session_state.dados = dados
-
     with st.sidebar:
         selected_date = st.date_input("Adicionar agenda", value=today)
         year, month = selected_date.year, selected_date.month
@@ -106,15 +102,16 @@ def main():
                 "cliente": cliente,
                 "servico": servico
             }
-            st.session_state.dados.append(new_item)
+            dados.append(new_item)
             with open('agenda.json', 'w', encoding='utf-8') as file:
-                json.dump(st.session_state.dados, file, ensure_ascii=False, indent=4)
+                json.dump(dados, file, ensure_ascii=False, indent=4)
             st.success("Item adicionado com sucesso!")
+            st.experimental_rerun()  # Recarrega a página após adicionar
 
         st.subheader("Editar Informações")
         edit_date = st.date_input("Selecionar data para editar", value=date.today())
         edit_year, edit_month = edit_date.year, edit_date.month
-        edit_info = [item for item in st.session_state.dados if item['dia'] == edit_date.day and item['mes'] == edit_month and item['ano'] == edit_year]
+        edit_info = [item for item in dados if item['dia'] == edit_date.day and item['mes'] == edit_month and item['ano'] == edit_year]
         if edit_info:
             st.write(f"Inserções para {edit_date}:")
             for idx, entry in enumerate(edit_info):
@@ -123,7 +120,7 @@ def main():
                 new_cliente = st.text_input("Cliente", value=entry['cliente'], key=f"cliente_{idx}")
                 new_servico = st.text_input("Serviço", value=entry['servico'], key=f"servico_{idx}")
                 if st.button(f"Salvar Alterações {idx + 1}", key=f"save_{idx}"):
-                    st.session_state.dados[st.session_state.dados.index(entry)] = {
+                    dados[dados.index(entry)] = {
                         "dia": entry['dia'],
                         "mes": entry['mes'],
                         "ano": entry['ano'],
@@ -132,24 +129,26 @@ def main():
                         "servico": new_servico
                     }
                     with open('agenda.json', 'w', encoding='utf-8') as file:
-                        json.dump(st.session_state.dados, file, ensure_ascii=False, indent=4)
+                        json.dump(dados, file, ensure_ascii=False, indent=4)
                     st.success("Alterações salvas com sucesso!")
+                    st.experimental_rerun()  # Recarrega a página após editar
 
         st.subheader("Excluir Informações")
         delete_date = st.date_input("Excluir agenda", value=date.today(), key="delete_date")
         if st.button("Excluir"):
-            for item in st.session_state.dados:
+            for item in dados:
                 if item['dia'] == delete_date.day and item['mes'] == delete_date.month and item['ano'] == delete_date.year:
-                    st.session_state.dados.remove(item)
+                    dados.remove(item)
                     with open('agenda.json', 'w', encoding='utf-8') as file:
-                        json.dump(st.session_state.dados, file, ensure_ascii=False, indent=4)
+                        json.dump(dados, file, ensure_ascii=False, indent=4)
                     st.success("Item excluído com sucesso!")
+                    st.experimental_rerun()  # Recarrega a página após excluir
                     break
             else:
                 st.error("Nenhum item encontrado com a data informada.")
 
     # Exibe o calendário atualizado
-    create_calendar(year, month, st.session_state.dados)
+    create_calendar(year, month, dados)
 
 if __name__ == "__main__":
     main()

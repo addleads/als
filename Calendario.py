@@ -92,12 +92,30 @@ def create_next_month_calendar(year, month, dados):
             if day == 0:
                 table += "<td style='height: 3cm; width: 3cm; padding: 5px; text-align: center;'></td>"
             else:
-                table += (
-                    "<td style='height: 3cm; width: 3cm; padding: 5px; text-align: left; vertical-align: top;'>"
-                    f"<div style='margin: 0;'>{day}</div>"
-                    "<div style='text-align: center;'></div>"
-                    "</td>"
-                )
+                info_dia = [item for item in dados if item['dia'] == day and item['mes'] == next_month and item['ano'] == next_year]
+                if info_dia:
+                    cell_content = f"<div style='margin: 0; font-weight: bold; text-align: left;'>{day}</div>"
+                    for entry in info_dia:
+                        cidade = unidecode(entry['cidade'])
+                        cliente = unidecode(entry['cliente'])
+                        servico = unidecode(entry['servico'])
+                        color = city_colors.get(cidade, "#000000")
+                        cell_content += (
+                            f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{cidade} - {cliente}</div>"
+                            f"<div style='text-align: left; background-color: {color}; color: white; padding: 2px; border-radius: 4px;'>{servico}</div>"
+                        )
+                    table += (
+                        f"<td style='height: 3cm; width: 3cm; padding: 5px; text-align: left; vertical-align: top;'>"
+                        f"{cell_content}"
+                        "</td>"
+                    )
+                else:
+                    table += (
+                        "<td style='height: 3cm; width: 3cm; padding: 5px; text-align: left; vertical-align: top;'>"
+                        f"<div style='margin: 0;'>{day}</div>"
+                        "<div style='text-align: center;'></div>"
+                        "</td>"
+                    )
         table += "</tr>"
     table += "</table>"
     st.markdown(table, unsafe_allow_html=True)
